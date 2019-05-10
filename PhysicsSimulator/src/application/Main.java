@@ -15,10 +15,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.*;
 
 
+/** The main class of the program tasked with managing and switching between windows and potentially showing new ones
+ * 
+ * @author samarthshah
+ *
+ */
 public class Main extends Application {
 	
 	private Stage primaryStage;
 	
+	/** Is what the program does while running, like initializing the scene with the menu on it and showing the window itself.
+	 * 
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {			
@@ -42,6 +50,9 @@ public class Main extends Application {
 		}
 	}
 	
+	/** Opens a new window with instructions and help on it
+	 * 
+	 */
 	public void showHelpWindow() {
 		Stage dialogStage = new Stage();
 		dialogStage.setResizable(false);
@@ -62,6 +73,10 @@ public class Main extends Application {
 		dialogStage.showAndWait();		
 	}
 	
+	/** The main method that runs the program
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
