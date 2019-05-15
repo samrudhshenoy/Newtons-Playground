@@ -8,8 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /** The main class of the program tasked with managing and switching between windows and potentially showing new ones
  * 
@@ -47,6 +50,20 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showMainScreen () {
+		HBox hBox = new HBox();
+		VBox dragAndDrop = new VBox();
+		VBox feildsChanger = new VBox();
+		Canvas canvas = new Canvas();
+		
+		hBox.getChildren().addAll(dragAndDrop, canvas, feildsChanger);
+
+		
+		Scene mainScreen = new Scene(hBox);
+	}
+	
+
 	
 	/** Opens a new window with instructions and help on it
 	 * 
