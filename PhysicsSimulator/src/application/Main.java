@@ -1,19 +1,15 @@
 package application;
 	
-import java.awt.Color;
+import java.awt.Toolkit;
 
 import application.controllers.menuScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.*;
-
 
 /** The main class of the program tasked with managing and switching between windows and potentially showing new ones
  * 
@@ -39,11 +35,13 @@ public class Main extends Application {
 			menuScreenController controller = loader.getController();
 			controller.setMain(this);
 						
-			Scene scene = new Scene(pane, 1280, 720);
+			Scene scene = new Scene(pane, Toolkit.getDefaultToolkit().getScreenSize().getWidth() , Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			
 			primaryStage.setScene(scene);
+			primaryStage.setMinHeight(720);
+			primaryStage.setMinWidth(1280);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -60,7 +58,9 @@ public class Main extends Application {
 		dialogStage.initModality(Modality.WINDOW_MODAL);
 		dialogStage.initOwner(primaryStage);
 		
-		TextArea text = new TextArea("Hi");
+		String helpString = "Hi";
+		
+		TextArea text = new TextArea(helpString);
 		text.setEditable(false);
 		text.setMinSize(400, 400);
 		text.setWrapText(true);
