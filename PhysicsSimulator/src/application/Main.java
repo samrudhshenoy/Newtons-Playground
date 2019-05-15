@@ -3,16 +3,20 @@ package application;
 import java.awt.Toolkit;
 
 import application.controllers.menuScreenController;
+import application.model.World;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /** The main class of the program tasked with managing and switching between windows and potentially showing new ones
  * 
@@ -41,7 +45,6 @@ public class Main extends Application {
 			Scene scene = new Scene(pane, Toolkit.getDefaultToolkit().getScreenSize().getWidth() , Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
-			
 			primaryStage.setScene(scene);
 			primaryStage.setMinHeight(720);
 			primaryStage.setMinWidth(1280);
@@ -51,16 +54,37 @@ public class Main extends Application {
 		}
 	}
 	
-	public void showMainScreen () {
-		HBox hBox = new HBox();
-		VBox dragAndDrop = new VBox();
-		VBox feildsChanger = new VBox();
-		Canvas canvas = new Canvas();
+	public void showMainScreen () {		
+//		  Canvas canvas = new Canvas(400, 200);
+//	        // Set the width of the Canvas
+//	        canvas.setWidth(400);
+//	        // Set the height of the Canvas
+//	        canvas.setHeight(200);
+//	         
+//	        // Get the graphics context of the canvas
+//	        GraphicsContext gc = canvas.getGraphicsContext2D();
+//	         
+//	        // Draw a Text
+//	        gc.strokeText("Hello Canvas", 150, 100);
 		
-		hBox.getChildren().addAll(dragAndDrop, canvas, feildsChanger);
-
-		
-		Scene mainScreen = new Scene(hBox);
+		World world = new World();
+		Canvas canvas = world.getCanvas();
+	         
+	        // Create the Pane
+	        Pane root = new Pane();
+	         
+	        // Add the Canvas to the Pane
+	        root.getChildren().add(canvas);
+	        // Create the Scene
+	        Scene scene = new Scene(root);
+	        // Add the Scene to the Stage
+	        Stage stage = new Stage();
+	        
+	        primaryStage.setScene(scene);
+	        // Set the Title of the Stage
+	        primaryStage.setTitle("Creation of a Canvas");
+	        // Display the Stage
+	        primaryStage.show(); 
 	}
 	
 

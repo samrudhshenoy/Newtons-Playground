@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
 
-public class World extends Application {
+public class World {
 
 	private Canvas canvas;
 	private Ball ball;
@@ -22,22 +22,19 @@ public class World extends Application {
 	public World() {
 		ball = new Ball(100, 100, 5, 100);
 		
-	}
-
-
-	@Override
-	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Drawing Canvas");
-		Group root = new Group();
-		Canvas canvas = new Canvas(300, 250);
+		canvas = new Canvas(1280, 720);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		drawShapes(gc);
-		root.getChildren().add(canvas);
-		primaryStage.setScene(new Scene(root));
-		primaryStage.show();
+//		drawShapes(gc);
+		
+		ball.draw(gc);
+		
 	}
-	
 	private void drawShapes(GraphicsContext gc) {
 		gc.setFill(Color.GREEN);
+		gc.fillRect(10, 10, 10, 10);
+	}
+	
+	public Canvas getCanvas() {
+		return canvas;
 	}
 }

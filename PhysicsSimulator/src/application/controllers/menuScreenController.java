@@ -46,7 +46,7 @@ public class menuScreenController {
 	 */
 	@FXML
 	void handleStart(ActionEvent event) {
-
+		m.showMainScreen();
 	}
 
 
