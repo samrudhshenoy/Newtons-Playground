@@ -38,11 +38,15 @@ public class Ball {
 			resultantY += mag * Math.sin(Math.toRadians(angle));
 		}
 		
-		vx = resultantX/mass/60;
-		vy = resultantY/mass/60;
+		vx += resultantX/mass;
+		vy += resultantY/mass;
+		
+		System.out.println(vx);
+		System.out.println(vy);
+
 				
 		x += vx/60;
-		y += vy/60;
+		y -= vy/60;		
 	}
 	
 	public void draw(GraphicsContext gc) {

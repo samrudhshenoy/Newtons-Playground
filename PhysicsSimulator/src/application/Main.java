@@ -81,10 +81,9 @@ public class Main extends Application {
 	        Stage stage = new Stage();
 	        
 	        primaryStage.setScene(scene);
-	        // Set the Title of the Stage
-	        primaryStage.setTitle("Creation of a Canvas");
-	        // Display the Stage
-	        primaryStage.show(); 
+	        
+	        world.run();
+
 	}
 	
 

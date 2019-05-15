@@ -2,27 +2,27 @@ package application.model;
 
 public class Force {
 
-	private int angle;
-	private int magnitude;
+	private double angle;
+	private double magnitude;
 	
-	public Force(int theta, int mag) {
+	public Force(double theta, double mag) {
 		angle = theta;
 		magnitude = mag;
 	}
 	
-	public int getAngle() {
+	public double getAngle() {
 		return angle;
 	}
 	
-	public int getMagnitude() {
+	public double getMagnitude() {
 		return magnitude;
 	}
 	
-	public void setAngle(int theta) {
+	public void setAngle(double theta) {
 		angle = theta;
 	}
 	
-	public void setMagnitude(int mag) {
+	public void setMagnitude(double mag) {
 		magnitude = mag;
 	}
 }
