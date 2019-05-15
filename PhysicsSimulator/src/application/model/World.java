@@ -4,13 +4,8 @@ import java.util.ArrayList;
 
 import javafx.scene.canvas.Canvas;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
-import javafx.stage.Stage;
 
 public class World {
 
@@ -24,6 +19,7 @@ public class World {
 	
 	public World() {
 		ball = new Ball(100, 100, 20, 100);
+		gravityMag = -9.81;
 		
 		canvas = new Canvas(1280, 720);
 		
@@ -49,7 +45,7 @@ public class World {
                 gc.setFill(Color.BLACK);
                 
                 ArrayList<Force> forces = new ArrayList<Force>();
-                forces.add(new Force(90, -50));
+                forces.add(new Force(90, gravityMag * ball.getMass()));
                 ball.act(forces);
                 
                 for (Obstacle o: obstacles) {

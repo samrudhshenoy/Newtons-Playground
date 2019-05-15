@@ -10,6 +10,8 @@ public class Force {
 		magnitude = mag;
 	}
 	
+	
+	// 0 is to the right, 90 is down, 180 is left and 270 is up
 	public double getAngle() {
 		return angle;
 	}

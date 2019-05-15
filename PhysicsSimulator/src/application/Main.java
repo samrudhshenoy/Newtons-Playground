@@ -10,13 +10,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /** The main class of the program tasked with managing and switching between windows and potentially showing new ones
  * 
@@ -77,9 +73,7 @@ public class Main extends Application {
 	        root.getChildren().add(canvas);
 	        // Create the Scene
 	        Scene scene = new Scene(root);
-	        // Add the Scene to the Stage
-	        Stage stage = new Stage();
-	        
+	     	        
 	        primaryStage.setScene(scene);
 	        
 	        world.run();
