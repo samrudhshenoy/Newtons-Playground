@@ -29,7 +29,7 @@ public class World {
 		obstacles.add(new Obstacle(canvas.getWidth(), 0, 90, canvas.getHeight()));
 		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
 
-		
+
 		gc = canvas.getGraphicsContext2D();
 		
 		ball.draw(gc);	
@@ -46,12 +46,16 @@ public class World {
                 
                 ArrayList<Force> forces = new ArrayList<Force>();
                 forces.add(new Force(90, gravityMag * ball.getMass()));
-                ball.act(forces);
+                
                 
                 for (Obstacle o: obstacles) {
                 	o.drawLine(gc);
+                	if (ball.collides(o)) {
+                		forces.add(new Force(o.getNormalAngle()+(o.getNormalAngle()-ball.getAngle()), ball.getVelocity()));
+                	}
                 }
                 
+                ball.act(forces);
                 ball.draw(gc);
                 
             }

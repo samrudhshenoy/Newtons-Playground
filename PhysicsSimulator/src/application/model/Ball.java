@@ -2,6 +2,7 @@ package application.model;
 
 import java.util.ArrayList;
 
+import samrudh.shapes.Line;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Circle;
@@ -12,6 +13,7 @@ public class Ball {
 	private double mass;
 	private double vx, vy;
 	private Circle shape;
+//	private ArrayList<Line> bounds;
 	
 	public Ball(double xVal, double yVal, double radius, double mass) {
 		x = xVal;
@@ -23,6 +25,13 @@ public class Ball {
 		
 		vx = 0.0;
 		vy = 0.0;
+		
+//		bounds = new ArrayList<Line>();
+//		
+//		bounds.add(new Line(x, y, x+radius*2, y));
+//		bounds.add(new Line(x, y+radius*2, x+radius*2, y+radius*2));
+//		bounds.add(new Line(x, y, x, y+radius*2));
+//		bounds.add(new Line(x+radius*2, y, x+radius*2, y+radius*2));
 	}
 	
 	public void act(ArrayList<Force> actingForces) {
@@ -61,5 +70,17 @@ public class Ball {
 	
 	public double getMass() {
 		return mass;
+	}
+	
+	public double getNormalForce() {
+		return 9.81 * mass;
+	}
+	
+	public double getVelocity() {
+		return Math.sqrt(vx*vx + vy*vy);
+	}
+	
+	public double getAngle() {
+		return Math.toDegrees(Math.atan(vy/vx));
 	}
 }

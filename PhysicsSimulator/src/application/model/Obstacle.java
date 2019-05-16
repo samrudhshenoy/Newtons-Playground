@@ -27,4 +27,8 @@ public class Obstacle {
 	public Line getLine() {
 		return line;
 	}
+	
+	public double getNormalAngle() {
+		return angle + 90;
+	}
 }
