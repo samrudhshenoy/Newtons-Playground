@@ -1,7 +1,7 @@
 package application.model;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.Line;
+import samarthshah.shapes.Line;
 
 public class Obstacle {
 
@@ -21,7 +21,7 @@ public class Obstacle {
 	}
 	
 	public void drawLine(GraphicsContext gc) {
-		gc.strokeLine(x, y, line.getEndX(), line.getEndY());
+		gc.strokeLine(line.getX(), line.getY(), line.getX2(), line.gety2());
 	}
 	
 	public Line getLine() {

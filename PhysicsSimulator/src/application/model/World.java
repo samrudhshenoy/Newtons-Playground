@@ -2,15 +2,21 @@ package application.model;
 
 import java.util.ArrayList;
 
+
 import javafx.scene.canvas.Canvas;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 public class World {
 
 	private Canvas canvas;
-	GraphicsContext gc;
+	private GraphicsContext gc;
+	
+	private AnimationTimer timer;
 	
 	private Ball ball;
 	private ArrayList<Obstacle> obstacles;
@@ -18,7 +24,7 @@ public class World {
 	
 	
 	public World() {
-		ball = new Ball(100, 100, 20, 100);
+		ball = new Ball(100, 100, 20, 100, 0.0, 100.0);
 		gravityMag = -9.81;
 		
 		canvas = new Canvas(1280, 720);
@@ -29,14 +35,11 @@ public class World {
 		obstacles.add(new Obstacle(canvas.getWidth(), 0, 90, canvas.getHeight()));
 		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
 
-
 		gc = canvas.getGraphicsContext2D();
 		
-		ball.draw(gc);	
-	}
-	
-	public void run() {
-		AnimationTimer timer = new AnimationTimer() {
+		ball.draw(gc);
+		
+		timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -47,21 +50,27 @@ public class World {
                 ArrayList<Force> forces = new ArrayList<Force>();
                 forces.add(new Force(90, gravityMag * ball.getMass()));
                 
-                
                 for (Obstacle o: obstacles) {
                 	o.drawLine(gc);
                 	if (ball.collides(o)) {
-                		forces.add(new Force(o.getNormalAngle()+(o.getNormalAngle()-ball.getAngle()), ball.getVelocity()));
+                		ball.bounceY();
+//                		forces.add(new Force(o.getNormalAngle()+(o.getNormalAngle()-ball.getAngle()), ball.getVelocity()));
                 	}
                 }
                 
                 ball.act(forces);
                 ball.draw(gc);
-                
+                                
             }
         };
-        
+	}
+	
+	public void start() {
         timer.start();
+	}
+	
+	public void stop() {
+		timer.stop();
 	}
 	
 	public Canvas getCanvas() {
