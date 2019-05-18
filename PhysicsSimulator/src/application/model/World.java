@@ -8,6 +8,11 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/** The class used to control the simulation part of the program like the ball and the obstacles and make sure they interact
+ * 
+ * @author samarthshah
+ *
+ */
 public class World {
 
 	private Canvas canvas;
@@ -19,7 +24,9 @@ public class World {
 	private ArrayList<Obstacle> obstacles;
 	private double gravityMag;
 	
-	
+	/** Creates a new world with a new ball, canvas, and obstacles for the edges of the window, and a new animation timer
+	 * 
+	 */
 	public World() {
 		ball = new Ball(100, 100, 20, 100, 0.0, 0.0);
 		gravityMag = 9.81;
@@ -54,7 +61,6 @@ public class World {
                 
 
                 	if (ball.collides(o)) {
-                		ball.bounceY();
                 	}
                 }
                 
@@ -64,10 +70,20 @@ public class World {
         };
 	}
 	
+	/** Adds a new obstacle with the parameters for values
+	 * 
+	 * @param x The first x value of the line
+	 * @param y The first y value of the line
+	 * @param angle The angle of the obstacle
+	 * @param length The length of the obstacle
+	 */
 	public void addNewObstacle(double x ,double y, double angle, double length) {
 		obstacles.add(new Obstacle(x, y, angle, length));
 	}
 	
+	/** Resets the obstacles in the simulation to just the ones on the edges
+	 * 
+	 */
 	public void resetObstacles() {
 		obstacles.clear();
 		obstacles.add(new Obstacle(0, 0, 0, canvas.getWidth()));
@@ -76,26 +92,48 @@ public class World {
 		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
 	}
 	
+	/** Starts the simulation
+	 * 
+	 */
 	public void start() {
         timer.start();
 	}
 	
+	/** Pauses the simulation
+	 * 
+	 */
 	public void stop() {
 		timer.stop();
 	}
 		
+	/**
+	 * 
+	 * @return The canvas where all of the simulation is being drawn on
+	 */
 	public Canvas getCanvas() {
 		return canvas;
 	}
 	
+	/**
+	 *  
+	 * @return A double with the current gravity magnitude of the simulation
+	 */
 	public double getGravity() {
 		return gravityMag;
 	}
 	
+	/**
+	 * 
+	 * @param g The value to set the gravity magnitude of the simulation to 
+	 */
 	public void setGravity(double g) {
 		gravityMag = g;
 	}
 	
+	/**
+	 * 
+	 * @return The ball that is currently being used in the simulation
+	 */
 	public Ball getBall() {
 		return ball;
 	}

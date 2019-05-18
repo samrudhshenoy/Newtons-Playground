@@ -4,20 +4,32 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
+/** The class that controls the sidebar that can be used for actions or adding new obstacles
+ * 
+ * @author samarthshah
+ *
+ */
 public class ObjectAdderPanelController {
 	
-	MainScreenController m;
+	private MainScreenController m;
 	
 	@FXML TextField xField;
 	@FXML TextField yField;
 	@FXML TextField angleField;
 	@FXML TextField lengthField;
 
-	
+	/**
+	 * 
+	 * @param main The main screen controller is controls the sidebar
+	 */
 	public void setController(MainScreenController main) {
 		m = main;
 	}
 	
+	/** Handles what to do if the add button is pressed
+	 * 
+	 * @param event
+	 */
 	@FXML
     void handleAdd(ActionEvent event) {
 		if (isInputValid()) {
@@ -30,28 +42,47 @@ public class ObjectAdderPanelController {
 		}
 	}
 	
+	/** Pauses the simulation when the button is pressed
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void handlePause(ActionEvent event) {
 		m.pause();
 	}
 	
+	/** Plays the simulation when the button is pressed
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void handlePlay(ActionEvent event) {
 		m.play();
 	}
 	
+	/** Goes back to the main menu when the button is pressed
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void handleBack(ActionEvent event) {
 		m.getMain().showMenuScreen();
 	}
 	
+	/** Resets the obstacles when the button is pressed
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void handleReset(ActionEvent event) {
 		m.getWorld().resetObstacles();
 	}
 
 
-
+	/** 
+	 * 
+	 * @return True if the inputs in the fields are valid for creating a new obstacle
+	 */
 	public boolean isInputValid() {
 		String errorMessage = "";
 

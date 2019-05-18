@@ -6,6 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
+/** The class that controls the sidebar that can be used for setting fields of the world and the vall
+ * 
+ * @author samarthshah
+ *
+ */
 public class WorldEditorPanelController {
 	
 	private	MainScreenController m;
@@ -35,6 +40,10 @@ public class WorldEditorPanelController {
     private World w;
     private Ball b;
     
+    /** Sets the main screen controller and puts in the current values into the text fields
+     * 
+     * @param main
+     */
     public void setMainAndFields(MainScreenController main) {
     	m = main;
     	w = m.getWorld();
@@ -51,6 +60,10 @@ public class WorldEditorPanelController {
 
     }
 
+    /** Sets the fields of the world and ball when the button is pressed
+     * 
+     * @param event
+     */
     @FXML
     void handleSet(ActionEvent event) {
     	if (isInputValid()) {
@@ -65,6 +78,10 @@ public class WorldEditorPanelController {
     	}
     }
     
+    /** Checks if the inputs in the text fields for setting the values of the world and the ball are valid
+     * 
+     * @return
+     */
 	public boolean isInputValid() {
 		String errorMessage = "";
 

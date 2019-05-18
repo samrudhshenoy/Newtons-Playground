@@ -11,12 +11,22 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+
+/** The class that controls the main screen with the simulation and the 2 sidebars
+ * 
+ * @author samarthshah
+ *
+ */
 public class MainScreenController {
 	
 	private Main m;
 	private BorderPane pane;
 	private World world;
 	
+	/** Creates a new main screen
+	 * 
+	 * @param m The main of the program
+	 */
 	public MainScreenController(Main m) {
 		
 		this.m = m;
@@ -68,26 +78,51 @@ public class MainScreenController {
 		world.start();
 	}
 	
+	/** Pauses the simulation
+	 * 
+	 */
 	public void pause() {
 		world.stop();
 	}
 	
+	/** Starts the simulation
+	 * 
+	 */
 	public void play() {
 		world.start();	
 	}
 	
+	/** Creates a new obstacle in the world
+	 * 
+	 * @param x The x value of the first point
+	 * @param y The y value of the first point
+	 * @param angle The angle of the obstacle
+	 * @param length The length of the obstacle
+	 */
 	public void addNewObstacle(double x ,double y, double angle, double length) {
 		world.addNewObstacle(x, y, angle, length);
 	}
 
+	/**
+	 * 
+	 * @return The pane that has the main screen on it to be displayed on the window
+	 */
 	public BorderPane getPane() {
 		return pane;
 	}
 	
+	/**
+	 * 
+	 * @return The simulation to be used by the 2 sidebars
+	 */
 	public World getWorld() {
 		return world;
 	}
 	
+	/**
+	 * 
+	 * @return The main to be used for going back to the main menu
+	 */
 	public Main getMain() {
 		return m;
 	}

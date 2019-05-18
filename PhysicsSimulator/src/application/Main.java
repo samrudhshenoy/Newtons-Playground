@@ -5,16 +5,13 @@ import java.io.IOException;
 
 import application.controllers.MainScreenController;
 import application.controllers.menuScreenController;
-import application.model.World;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 /** The main class of the program tasked with managing and switching between windows and potentially showing new ones
  * 
@@ -52,16 +49,10 @@ public class Main extends Application {
 		}
 	}
 
-	public void showMainScreen () {		
-
-		//		World world = new World();
-		//		Canvas canvas = world.getCanvas();
-		//
-		//		// Create the Pane
-		//		Pane root = new Pane();
-		//
-		//		// Add the Canvas to the Pane
-		//		root.getChildren().add(canvas);
+	/** Shows the main screen of the program with the simualation and the 2 sidebars
+	 * 
+	 */
+	public void showMainScreen () {
 
 		MainScreenController msc = new MainScreenController(this);
 
@@ -73,6 +64,9 @@ public class Main extends Application {
 
 	}
 
+	/** Shows the menu screen of the program
+	 * 
+	 */
 	public void showMenuScreen () {
 
 		try {
