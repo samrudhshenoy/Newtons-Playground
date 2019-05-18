@@ -1,7 +1,9 @@
 package application;
 
 import java.awt.Toolkit;
+import java.io.IOException;
 
+import application.controllers.MainScreenController;
 import application.controllers.menuScreenController;
 import application.model.World;
 import javafx.application.Application;
@@ -51,32 +53,43 @@ public class Main extends Application {
 	}
 
 	public void showMainScreen () {		
-		//		  Canvas canvas = new Canvas(400, 200);
-		//	        // Set the width of the Canvas
-		//	        canvas.setWidth(400);
-		//	        // Set the height of the Canvas
-		//	        canvas.setHeight(200);
-		//	         
-		//	        // Get the graphics context of the canvas
-		//	        GraphicsContext gc = canvas.getGraphicsContext2D();
-		//	         
-		//	        // Draw a Text
-		//	        gc.strokeText("Hello Canvas", 150, 100);
 
-		World world = new World();
-		Canvas canvas = world.getCanvas();
+		//		World world = new World();
+		//		Canvas canvas = world.getCanvas();
+		//
+		//		// Create the Pane
+		//		Pane root = new Pane();
+		//
+		//		// Add the Canvas to the Pane
+		//		root.getChildren().add(canvas);
 
-		// Create the Pane
-		Pane root = new Pane();
+		MainScreenController msc = new MainScreenController(this);
 
-		// Add the Canvas to the Pane
-		root.getChildren().add(canvas);
 		// Create the Scene
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(msc.getPane());
 
 		primaryStage.setScene(scene);
 
-		world.start();
+
+	}
+
+	public void showMenuScreen () {
+
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("fxml/menuScreen.fxml"));
+			BorderPane pane = (BorderPane) loader.load();
+			menuScreenController controller = loader.getController();
+			controller.setMain(this);
+
+			Scene scene = new Scene(pane);
+
+			primaryStage.setScene(scene);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 
 	}
 

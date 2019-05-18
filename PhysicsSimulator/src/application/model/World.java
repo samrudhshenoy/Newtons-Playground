@@ -7,9 +7,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 
 public class World {
 
@@ -24,15 +21,15 @@ public class World {
 	
 	
 	public World() {
-		ball = new Ball(100, 100, 20, 100, 0.0, 100.0);
-		gravityMag = -9.81;
+		ball = new Ball(100, 100, 20, 100, 0.0, 0.0);
+		gravityMag = 9.81;
 		
-		canvas = new Canvas(1280, 720);
+		canvas = new Canvas(720, 720);
 		
 		obstacles = new ArrayList<Obstacle>();
 		obstacles.add(new Obstacle(0, 0, 0, canvas.getWidth()));
 		obstacles.add(new Obstacle(0, 0, 90, canvas.getHeight()));
-		obstacles.add(new Obstacle(canvas.getWidth(), 0, 90, canvas.getHeight()));
+		obstacles.add(new Obstacle(canvas.getWidth(), 720, 270, canvas.getHeight()));
 		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
 
 		gc = canvas.getGraphicsContext2D();
@@ -47,22 +44,36 @@ public class World {
                 gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 gc.setFill(Color.BLACK);
                 
+                ball.draw(gc);
+                
                 ArrayList<Force> forces = new ArrayList<Force>();
-                forces.add(new Force(90, gravityMag * ball.getMass()));
+                forces.add(new Force(270, gravityMag * ball.getMass()));
                 
                 for (Obstacle o: obstacles) {
                 	o.drawLine(gc);
+                
+
                 	if (ball.collides(o)) {
                 		ball.bounceY();
-//                		forces.add(new Force(o.getNormalAngle()+(o.getNormalAngle()-ball.getAngle()), ball.getVelocity()));
                 	}
                 }
                 
                 ball.act(forces);
-                ball.draw(gc);
                                 
             }
         };
+	}
+	
+	public void addNewObstacle(double x ,double y, double angle, double length) {
+		obstacles.add(new Obstacle(x, y, angle, length));
+	}
+	
+	public void resetObstacles() {
+		obstacles.clear();
+		obstacles.add(new Obstacle(0, 0, 0, canvas.getWidth()));
+		obstacles.add(new Obstacle(0, 0, 90, canvas.getHeight()));
+		obstacles.add(new Obstacle(canvas.getWidth(), 720, 270, canvas.getHeight()));
+		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
 	}
 	
 	public void start() {
@@ -72,8 +83,20 @@ public class World {
 	public void stop() {
 		timer.stop();
 	}
-	
+		
 	public Canvas getCanvas() {
 		return canvas;
+	}
+	
+	public double getGravity() {
+		return gravityMag;
+	}
+	
+	public void setGravity(double g) {
+		gravityMag = g;
+	}
+	
+	public Ball getBall() {
+		return ball;
 	}
 }

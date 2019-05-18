@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.WorldEditorPanelController">
+   <children>
+      <Label prefHeight="70.0" prefWidth="280.0" text="World">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <TextField fx:id="gravityField" promptText="Gravity" />
+      <Separator prefWidth="200.0" />
+      <Label prefHeight="70.0" prefWidth="280.0" text="Ball">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <TextField promptText="X" fx:id="xField" />
+      <TextField fx:id="yField" promptText="Y" />
+      <TextField fx:id="radiusField" promptText="Radius" />
+      <TextField fx:id="massField" promptText="Mass" />
+      <TextField fx:id="vxField" promptText="VX" />
+      <TextField fx:id="vyField" promptText="VY" />
+      <Button mnemonicParsing="false" onAction="#handleSet" text="Set" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="120.0" top="5.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

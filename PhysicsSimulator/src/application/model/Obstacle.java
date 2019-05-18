@@ -31,4 +31,8 @@ public class Obstacle {
 	public double getNormalAngle() {
 		return angle + 90;
 	}
+	
+	public String toString() {
+		return line.getX() + " " + line.getY() + " " + line.getX2() + " " + line.gety2();
+	}
 }

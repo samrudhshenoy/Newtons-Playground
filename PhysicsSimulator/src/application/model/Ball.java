@@ -52,11 +52,11 @@ public class Ball {
 		resultantX = ((int)resultantX*100)/100.0;
 		resultantY = ((int)resultantY*100)/100.0;
 
-		vx += resultantX/mass/60;
-		vy += resultantY/mass/60;
+			vx += resultantX/mass;
+			vy += resultantY/mass;
 
-		//		System.out.println(vx);
-		//		System.out.println(vy);
+//		System.out.println(vx);
+//		System.out.println(vy);
 
 		x += vx/60;
 		y -= vy/60;		
@@ -68,27 +68,113 @@ public class Ball {
 
 	public boolean collides(Obstacle o) {
 		Line l = o.getLine();
-		double a = l.gety2()-l.getY();
-		double b = l.getX2()-l.getX();
-		double c= (l.getX()*l.gety2()) - (l.getX2()*l.getY());
+		int a = Math.abs((int)(l.gety2()-l.getY()));
+		int b = (int)(l.getX2()-l.getX());
+		int c= (int)((l.getX()*l.gety2()) - (l.getX2()*l.getY()));
 
 		double dist = (Math.abs(a * x + b * y + c)) /  
 				Math.sqrt(a * a + b * b); 
 		
-		return r >= dist;
-			
+//		System.out.println(x + ", " + y);
+//		
+//		System.out.println(dist);
+//		System.out.println(r);
+//		
+//		System.out.println(r/2 >= dist);
+//		System.out.println();
+				
+		return r >= dist;	
 	}
+	
+	public void showDistProcess(Obstacle o) {
+		Line l = o.getLine();
+		int a = Math.abs((int)(l.gety2()-l.getY()));
+		
+		System.out.println("a = " + a);
+		int b = (int)(l.getX2()-l.getX());
+		System.out.println("b = " + b);
+
+		int c= (int)((l.getX()*l.gety2()) - (l.getX2()*l.getY()));
+
+		System.out.println("c = " + c);
+
+
+		double dist = (Math.abs(a * x + b * y + c)) /  
+				Math.sqrt(a * a + b * b); 
+		
+		
+		System.out.println(x + ", " + y);
+		
+		System.out.println(dist);
+		System.out.println(r);
+		
+		System.out.println(r/2 >= dist);
+		System.out.println();
+		
+
+	}
+	
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
+	}
+	
+	public double getRadius() {
+		return r;
+	}
+	
+	public double getMass() {
+		return mass;
+	}
+	
+	public double getVX() {
+		return vx;
+	}
+	
+	public double getVY() {
+		return vy;
+	}
+	
+	public void setX(double val) {
+		x = val;
+	}
+	public void setY(double val) {
+		y = val;
+	}
+	public void setRadius(double val) {
+		r = val;
+	}
+	public void setMass(double val) {
+		mass = val;
+	}
+	public void setVX(double val) {
+		vx = val;
+	}
+	public void setVY(double val) {
+		vy = val;
+	}
+	
+	
+	
 
 	public void bounceY() {
+		if (vx < 0) {
+			y += 1;
+		} else {
+			y -= 1;
+		}
+		
 		vy *= -0.9;
+//		vy = 0;
+//		y = 100;
 	}
 	
 	public void bounceX() {
-		vx *= -0.9;
-	}
-
-	public double getMass() {
-		return mass;
+		vx = 0;
+		x = 100;
 	}
 
 	public double getNormalForce() {
@@ -102,4 +188,6 @@ public class Ball {
 	public double getAngle() {
 		return Math.toDegrees(Math.atan(vy/vx));
 	}
+	
+
 }

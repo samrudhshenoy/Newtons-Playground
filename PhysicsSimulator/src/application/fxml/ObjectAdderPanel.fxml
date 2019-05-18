@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ObjectAdderPanelController">
+   <children>
+      <Label prefHeight="70.0" prefWidth="280.0" text="Actions">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Button mnemonicParsing="false" onAction="#handleBack" text="Back" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="120.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#handlePause" text="Pause" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="115.0" top="10.0" />
+         </VBox.margin></Button>
+      <Button mnemonicParsing="false" onAction="#handlePlay" text="Play" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="120.0" top="10.0" />
+         </VBox.margin></Button>
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin></Separator>
+      <Label prefHeight="70.0" prefWidth="280.0" text="New Obstacle">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <TextField promptText="X" fx:id="xField" />
+      <TextField fx:id="yField" promptText="Y" />
+      <TextField fx:id="angleField" promptText="Angle" />
+      <TextField fx:id="lengthField" promptText="Length" />
+      <Button mnemonicParsing="false" onAction="#handleAdd" text="Add" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="120.0" top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#handleReset" text="Reset" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="115.0" top="10.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>
