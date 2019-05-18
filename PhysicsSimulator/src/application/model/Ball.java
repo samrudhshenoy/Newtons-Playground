@@ -5,14 +5,10 @@ import java.util.ArrayList;
 //import samrudh.shapes.Line;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.Shape;
 import samarthshah.shapes.Circle;
 import samarthshah.shapes.Line;
 
-/** The class of the ball that is in the simulation that moves based on the forces on it
- * 
- * @author samarthshah
- *
- */
 public class Ball {
 
 	private double x, y, r;
@@ -21,6 +17,7 @@ public class Ball {
 	private Circle circle;
 	//	private ArrayList<Line> bounds;
 
+	
 	/** Creates a new ball with the values
 	 *  
 	 * @param xVal The initial x value
@@ -40,6 +37,13 @@ public class Ball {
 
 		vx = velocityX;
 		vy = velocityY;
+
+		//		bounds = new ArrayList<Line>();
+		//		
+		//		bounds.add(new Line(x, y, x+radius*2, y));
+		//		bounds.add(new Line(x, y+radius*2, x+radius*2, y+radius*2));
+		//		bounds.add(new Line(x, y, x, y+radius*2));
+		//		bounds.add(new Line(x+radius*2, y, x+radius*2, y+radius*2));
 	}
 
 	/** Changes the velocity and the position based on the forces acting on the ball
@@ -62,11 +66,11 @@ public class Ball {
 		resultantX = ((int)resultantX*100)/100.0;
 		resultantY = ((int)resultantY*100)/100.0;
 
-		vx += resultantX/mass;
-		vy += resultantY/mass;
+			vx += resultantX/mass;
+			vy += resultantY/mass;
 
-		//		System.out.println(vx);
-		//		System.out.println(vy);
+//		System.out.println(vx);
+//		System.out.println(vy);
 
 		x += vx/60;
 		y -= vy/60;		
@@ -79,7 +83,7 @@ public class Ball {
 	public void draw(GraphicsContext gc) {
 		gc.fillOval(x, y, r, r);
 	}
-
+	
 	/** Checks if the ball is colliding with the obstacle
 	 * 
 	 * @param o The obstacles to check for collision
@@ -93,18 +97,73 @@ public class Ball {
 
 		double dist = (Math.abs(a * x + b * y + c)) /  
 				Math.sqrt(a * a + b * b); 
-
-		//		System.out.println(x + ", " + y);
-		//		
-		//		System.out.println(dist);
-		//		System.out.println(r);
-		//		
-		//		System.out.println(r/2 >= dist);
-		//		System.out.println();
-
+		
+//		System.out.println(x + ", " + y);
+//		
+//		System.out.println(dist);
+//		System.out.println(r);
+//		
+//		System.out.println(r/2 >= dist);
+//		System.out.println();
+				
 		return r >= dist;	
 	}
+	
+	/**
+	 * 
+	 * @param o 
+	 */
+	public void showDistProcess(Obstacle o) {
+		Line l = o.getLine();
+		int a = Math.abs((int)(l.gety2()-l.getY()));
+		
+		System.out.println("a = " + a);
+		int b = (int)(l.getX2()-l.getX());
+		System.out.println("b = " + b);
 
+		int c= (int)((l.getX()*l.gety2()) - (l.getX2()*l.getY()));
+
+		System.out.println("c = " + c);
+
+
+		double dist = (Math.abs(a * x + b * y + c)) /  
+				Math.sqrt(a * a + b * b); 
+		
+		
+		System.out.println(x + ", " + y);
+		
+		System.out.println(dist);
+		System.out.println(r);
+		
+		System.out.println(r/2 >= dist);
+		System.out.println();
+		
+
+	}
+	
+
+	/**
+	 * Changes the y component of velocity for a bounce in the vertical direction
+	 */
+	public void bounceY() {
+		if (vx < 0) {
+			y += 1;
+		} else {
+			y -= 1;
+		}
+		
+		vy *= -0.9;
+//		vy = 0;
+//		y = 100;
+	}
+	
+	/**
+	 * Changes the x component of velocity for a bounce in the horizontal direction
+	 */
+	public void bounceX() {
+		vx *= -.9;
+	}
+	
 	/**
 	 *  
 	 * @return The x value of the ball
@@ -224,6 +283,6 @@ public class Ball {
 	public double getAngle() {
 		return Math.toDegrees(Math.atan(vy/vx));
 	}
-
+	
 
 }

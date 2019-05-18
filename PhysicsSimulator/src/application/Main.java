@@ -4,7 +4,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 
 import application.controllers.MainScreenController;
-import application.controllers.menuScreenController;
+import application.controllers.MenuScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
@@ -34,12 +34,13 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("fxml/menuScreen.fxml"));
 			BorderPane pane = (BorderPane) loader.load();
-			menuScreenController controller = loader.getController();
+			MenuScreenController controller = loader.getController();
 			controller.setMain(this);
 
 			Scene scene = new Scene(pane, Toolkit.getDefaultToolkit().getScreenSize().getWidth() , Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
+			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.setMinHeight(720);
 			primaryStage.setMinWidth(1280);
@@ -73,7 +74,7 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("fxml/menuScreen.fxml"));
 			BorderPane pane = (BorderPane) loader.load();
-			menuScreenController controller = loader.getController();
+			MenuScreenController controller = loader.getController();
 			controller.setMain(this);
 
 			Scene scene = new Scene(pane);
@@ -99,7 +100,12 @@ public class Main extends Application {
 		dialogStage.initModality(Modality.WINDOW_MODAL);
 		dialogStage.initOwner(primaryStage);
 
-		String helpString = "Hi";
+		String helpString = "Instructions:\n" + 
+				"- Press \"Start\" to begin a new game" + 
+				"- Actions are listed in the top left corner\n" + 
+				"- Create or clear obstacles on the left panel\n" + 
+				"- Alter the world's graity on the right panel\n" +
+				"- Modify the ball's position, mass, and angle on the right panel\n";
 
 		TextArea text = new TextArea(helpString);
 		text.setEditable(false);

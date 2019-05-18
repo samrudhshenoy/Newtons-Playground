@@ -27,7 +27,7 @@ public class Obstacle {
 		 this.x = x;
 		 this.y = y;
 		 this.length = length;
-		 angle = theta;
+		 angle = -theta;
 		 
 		 line = new Line(x, y, x + length * Math.cos(Math.toRadians(angle)), y + length * Math.sin(Math.toRadians(angle)));
 	}
@@ -61,5 +61,12 @@ public class Obstacle {
 	 */
 	public String toString() {
 		return line.getX() + " " + line.getY() + " " + line.getX2() + " " + line.gety2();
+	}
+	
+	/**
+	 * @return the angle direction of the obstacle
+	 */
+	public double getAngle() {
+		return angle;
 	}
 }

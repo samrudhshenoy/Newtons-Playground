@@ -8,6 +8,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+
 /** The class used to control the simulation part of the program like the ball and the obstacles and make sure they interact
  * 
  * @author samarthshah
@@ -24,6 +25,7 @@ public class World {
 	private ArrayList<Obstacle> obstacles;
 	private double gravityMag;
 	
+	
 	/** Creates a new world with a new ball, canvas, and obstacles for the edges of the window, and a new animation timer
 	 * 
 	 */
@@ -36,7 +38,7 @@ public class World {
 		obstacles = new ArrayList<Obstacle>();
 		obstacles.add(new Obstacle(0, 0, 0, canvas.getWidth()));
 		obstacles.add(new Obstacle(0, 0, 90, canvas.getHeight()));
-		obstacles.add(new Obstacle(canvas.getWidth(), 720, 270, canvas.getHeight()));
+		obstacles.add(new Obstacle(canvas.getWidth(), 720, -90, canvas.getHeight()));
 		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
 
 		gc = canvas.getGraphicsContext2D();
@@ -61,6 +63,25 @@ public class World {
                 
 
                 	if (ball.collides(o)) {
+                		if (o.getNormalAngle() == 90)
+                			ball.bounceY();
+                		else if (o.getNormalAngle() == 0 || Math.abs(o.getNormalAngle()) == 180) {
+                			System.out.println('e');
+                			ball.bounceX();
+                		}
+                		else {
+                			
+//                			double angle = o.getNormalAngle();
+//                			forces.add(new Force(angle, -gravityMag * ball.getMass()));
+                			
+                			double newAngle = 0;
+                	        newAngle = 2*o.getAngle()-ball.getAngle();
+                	        if(o.getAngle()<0 && ball.getAngle()>0) {
+                	            newAngle = 180+(2*ball.getAngle()-o.getAngle());
+                	        }
+                	        ball.setVX(-Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(newAngle*Math.PI/180))));
+                	        ball.setVY(-0.1*Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.sin(newAngle*Math.PI/180))));
+                		}
                 	}
                 }
                 
@@ -69,6 +90,7 @@ public class World {
             }
         };
 	}
+	
 	
 	/** Adds a new obstacle with the parameters for values
 	 * 
@@ -136,5 +158,37 @@ public class World {
 	 */
 	public Ball getBall() {
 		return ball;
+	}
+	
+	static long start = 0;
+	static double xI = 0;
+	static double yI = 0;
+	static double xF = 0;
+	static double yF = 0;
+	
+	/**
+	 * Begins data collection and starts time, initializes position
+	 */
+	public void startDataCollection() {
+		start = System.currentTimeMillis();
+		xI = ball.getX();
+		yI = ball.getY();
+	}
+	
+	/**
+	 * Stops data collection and returns computed values in a double array
+	 * @return double array with displacement, average velocity, Δx, Δy, and time elapsed
+	 */
+	public double[] stopDataCollection() {
+		double timeElapsed = (System.currentTimeMillis() - start) * .001;
+		xF = ball.getX();
+		yF = ball.getY();
+		
+		double changeDisp = Math.sqrt(Math.pow(xI-xF, 2) + Math.pow(yI-yF, 2));
+		double avgVelocity = changeDisp/timeElapsed;
+		double changeX = xF - xI;
+		double changeY = yF - yI;
+		
+		return new double[] {changeDisp, avgVelocity, changeX, changeY, timeElapsed};
 	}
 }
