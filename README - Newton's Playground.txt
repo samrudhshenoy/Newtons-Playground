@@ -31,20 +31,21 @@ an easy to comprehend visualization of common word problems students tend to hav
 
 Instructions:
 - Set values for parameters on the side bar
-- Drag and drop elements from the side bar
+- Enter values to change the values for the world or add a new plane as an obstacle
 - Drag and drop ball to set it into motion
 
 
 Class List:
 - Main
-- DrawingSurface
-- Shape
-- Physics Shape
-- Circle
-- Obstacle (abstract class)
-        - Ramp
-        - Wall
-        - Platform
+- Obstacle
+- Ball
+- Force
+- World
+- MainScreenController
+- MenuScreenController
+- ObjectAddedPanelController
+- WorldEditorPanelController
+
 
 
 
@@ -53,16 +54,16 @@ Features:
 
 
 Must Have:
-- Balls can be placed on different surfaces
+- Balls can be let go from different place
 - Gravity, friction, and ball weight can be set to custom values
 - Ability to set initial x and y velocity
 - Pause and play options
-- Ability to save experiments with exact positions/parameters
+- Ability add new planes into the simulation, as well as reset them
 - Data collection during experiments
-- [INTERACTABLES]
 
 
 Want to Have:
+- Ability to save experiments
 - 3D User Interface
 - Ability to set air pressure and resistance
 - Launching the ball out of cannons/catapults
