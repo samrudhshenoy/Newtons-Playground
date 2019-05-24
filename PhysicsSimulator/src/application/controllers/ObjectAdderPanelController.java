@@ -42,6 +42,21 @@ public class ObjectAdderPanelController {
 		}
 	}
 	
+	@FXML
+	void handleSave(ActionEvent event) {
+		m.getMain().showSaveScreen();
+	}
+	
+	@FXML
+	void handleLoad(ActionEvent event) {
+		m.getMain().showLoadScreen();
+	}
+	
+	@FXML
+	void handleShowData() {
+		m.getMain().showDataWindow(m.getWorld().getData());
+	}
+	
 	/** Pauses the simulation when the button is pressed
 	 * 
 	 * @param event

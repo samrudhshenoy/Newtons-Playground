@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ObjectAdderPanelController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ObjectAdderPanelController">
    <children>
       <Label prefHeight="70.0" prefWidth="280.0" text="Actions">
          <font>
@@ -21,6 +21,21 @@
       <Button mnemonicParsing="false" onAction="#handleBack" text="Back" textAlignment="CENTER">
          <VBox.margin>
             <Insets left="120.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#handleSave" text="Save" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="120.0" top="10.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#handleLoad" text="Load" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="120.0" top="10.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#handleShowData" text="Show Data" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="100.0" top="10.0" />
          </VBox.margin>
       </Button>
       <Button mnemonicParsing="false" onAction="#handlePause" text="Pause" textAlignment="CENTER">

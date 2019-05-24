@@ -1,12 +1,14 @@
 package application.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 import application.Main;
+import application.model.Obstacle;
 import application.model.World;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -17,22 +19,26 @@ import javafx.scene.layout.VBox;
  * @author samarthshah
  *
  */
-public class MainScreenController {
+public class MainScreenController implements Serializable {
+	
+	private static final long serialVersionUID = 100L;
+
 	
 	private Main m;
 	private BorderPane pane;
 	private World world;
+	private WorldEditorPanelController wepc;
 	
 	/** Creates a new main screen
 	 * 
 	 * @param m The main of the program
 	 */
 	public MainScreenController(Main m) {
-		
+				
 		this.m = m;
 		pane = new BorderPane();
 		
-		world = new World();
+		world = new World(this);
 		Canvas canvas = world.getCanvas();
 
 		// Create the Pane
@@ -65,17 +71,19 @@ public class MainScreenController {
 		loader.setLocation(Main.class.getResource("fxml/WorldEditorPanel.fxml"));
 		VBox vbox = (VBox) loader.load();
 		
-		WorldEditorPanelController controller = loader.getController();
-		controller.setMainAndFields(this);
+		wepc = loader.getController();
+		wepc.setMainAndFields(this);
 		
 		pane.setRight(vbox);
 
 		
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-		world.start();
+		}		
+	}
+	
+	public void refreshWorldBar() {
+		wepc.refresh();
 	}
 	
 	/** Pauses the simulation
@@ -101,6 +109,19 @@ public class MainScreenController {
 	 */
 	public void addNewObstacle(double x ,double y, double angle, double length) {
 		world.addNewObstacle(x, y, angle, length);
+	}
+	
+	public void setWorld(World w) {
+		world.setBall(w.getBall());
+		
+		ArrayList<Obstacle> newObstacles = w.getObstacles();
+		
+		for (Obstacle o: newObstacles) {
+			o.generateLine();
+		}
+		
+		world.setObstacles(newObstacles);
+		world.setGravity(w.getGravity());
 	}
 
 	/**

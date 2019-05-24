@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SaveScreenController">
+   <children>
+      <Label text="Save Experiment">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="10.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Name of Save">
+               <HBox.margin>
+                  <Insets left="30.0" top="35.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="22.0" />
+               </font>
+               <padding>
+                  <Insets left="90.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="saveNameField">
+               <HBox.margin>
+                  <Insets left="30.0" top="35.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="100.0" />
+         </VBox.margin>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#handleSave" text="Save">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="260.0" top="40.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

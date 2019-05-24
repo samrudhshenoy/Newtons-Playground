@@ -1,5 +1,7 @@
 package application.model;
 
+import java.io.Serializable;
+
 import javafx.scene.canvas.GraphicsContext;
 import samarthshah.shapes.Line;
 
@@ -8,10 +10,12 @@ import samarthshah.shapes.Line;
  * @author samarthshah
  *
  */
-public class Obstacle {
+public class Obstacle implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private double x, y;
-	private Line line;
+	private transient Line line;
 	private double length;
 	private double angle;
 	private double frictionMag;
@@ -29,7 +33,46 @@ public class Obstacle {
 		 this.length = length;
 		 angle = -theta;
 		 
-		 line = new Line(x, y, x + length * Math.cos(Math.toRadians(angle)), y + length * Math.sin(Math.toRadians(angle)));
+		 double x1 = x;
+		 double x2 = x + length * Math.cos(Math.toRadians(angle));
+		 double y1 = y;
+		 double y2 = y + length * Math.sin(Math.toRadians(angle));
+		 
+//			if (x1 > x2) {
+//				double temp = x1;
+//				x1 = x2;
+//				x2 = temp;
+//			}
+		 
+			if (y1 < y2 && x1 == x2) {
+				double temp = y1;
+				y1 = y2;
+				y2 = temp;
+			}
+		 
+		 line = new Line(x1, y1, x2, y2);
+	}
+	
+	public void printVals() {
+		 System.out.println(line.getX());
+		 System.out.println(line.getX2());
+		 System.out.println(line.getY());
+		 System.out.println(line.gety2());
+	}
+	
+	public void generateLine() {
+		 double x1 = x;
+		 double x2 = x + length * Math.cos(Math.toRadians(angle));
+		 double y1 = y;
+		 double y2 = y + length * Math.sin(Math.toRadians(angle));
+		 
+			if (y1 < y2 && x1 == x2) {
+				double temp = y1;
+				y1 = y2;
+				y2 = temp;
+			}
+		 
+		 line = new Line(x1, y1, x2, y2);
 	}
 	
 	/**  Draws the obstacle on the canvas using the graphics context
@@ -46,6 +89,18 @@ public class Obstacle {
 	 */
 	public Line getLine() {
 		return line;
+	}
+	
+	public double getLength() {
+		return length;
+	}
+	
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
 	}
 	
 	/**

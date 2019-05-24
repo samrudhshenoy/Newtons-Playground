@@ -1,8 +1,9 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-
+import application.controllers.MainScreenController;
 import javafx.scene.canvas.Canvas;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,33 +15,43 @@ import javafx.scene.paint.Color;
  * @author samarthshah
  *
  */
-public class World {
-
-	private Canvas canvas;
-	private GraphicsContext gc;
+public class World implements Serializable {
 	
-	private AnimationTimer timer;
+	private static final long serialVersionUID = 3L;
+
+	private MainScreenController msc;
+	private transient Canvas canvas;
+	private transient GraphicsContext gc;
+	
+	private transient AnimationTimer timer;
 	
 	private Ball ball;
 	private ArrayList<Obstacle> obstacles;
 	private double gravityMag;
+	private double[] data;
 	
 	
 	/** Creates a new world with a new ball, canvas, and obstacles for the edges of the window, and a new animation timer
 	 * 
 	 */
-	public World() {
+	public World(MainScreenController main) {
+		
+		msc = main;
+		
 		ball = new Ball(100, 100, 20, 100, 0.0, 0.0);
 		gravityMag = 9.81;
+		
+		data = new double[] {0, 0, 0, 0, 0};
+
 		
 		canvas = new Canvas(720, 720);
 		
 		obstacles = new ArrayList<Obstacle>();
 		obstacles.add(new Obstacle(0, 0, 0, canvas.getWidth()));
-		obstacles.add(new Obstacle(0, 0, 90, canvas.getHeight()));
-		obstacles.add(new Obstacle(canvas.getWidth(), 720, -90, canvas.getHeight()));
+		obstacles.add(new Obstacle(0, 0, 270, canvas.getHeight()));
+		obstacles.add(new Obstacle(canvas.getWidth(), canvas.getHeight(), 90, canvas.getHeight()));
 		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
-
+		
 		gc = canvas.getGraphicsContext2D();
 		
 		ball.draw(gc);
@@ -49,6 +60,7 @@ public class World {
             @Override
             public void handle(long now) {
                 GraphicsContext gc = canvas.getGraphicsContext2D();
+                
                 gc.setFill(Color.BEIGE);
                 gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 gc.setFill(Color.BLACK);
@@ -61,12 +73,10 @@ public class World {
                 for (Obstacle o: obstacles) {
                 	o.drawLine(gc);
                 
-
                 	if (ball.collides(o)) {
                 		if (o.getNormalAngle() == 90)
                 			ball.bounceY();
                 		else if (o.getNormalAngle() == 0 || Math.abs(o.getNormalAngle()) == 180) {
-                			System.out.println('e');
                 			ball.bounceX();
                 		}
                 		else {
@@ -82,10 +92,20 @@ public class World {
                 	        ball.setVX(-Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(newAngle*Math.PI/180))));
                 	        ball.setVY(-0.1*Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.sin(newAngle*Math.PI/180))));
                 		}
+
+//                			double newAngle = 0;
+//                	        newAngle = 2*o.getAngle()-ball.getAngle();
+//                	        if(o.getAngle()<0 && ball.getAngle()>0) {
+//                	            newAngle = 180+(2*ball.getAngle()-o.getAngle());
+//                	        }
+//                	        ball.setVX(-Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(newAngle*Math.PI/180))));
+//                	        ball.setVY(-0.1*Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.sin(newAngle*Math.PI/180))));
                 	}
                 }
                 
                 ball.act(forces);
+                
+                msc.refreshWorldBar();
                                 
             }
         };
@@ -101,6 +121,10 @@ public class World {
 	 */
 	public void addNewObstacle(double x ,double y, double angle, double length) {
 		obstacles.add(new Obstacle(x, y, angle, length));
+		
+		for (Obstacle o: obstacles) {
+			o.drawLine(gc);
+		}
 	}
 	
 	/** Resets the obstacles in the simulation to just the ones on the edges
@@ -112,6 +136,10 @@ public class World {
 		obstacles.add(new Obstacle(0, 0, 90, canvas.getHeight()));
 		obstacles.add(new Obstacle(canvas.getWidth(), 720, 270, canvas.getHeight()));
 		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
+		
+		for (Obstacle o: obstacles) {
+			o.drawLine(gc);
+		}
 	}
 	
 	/** Starts the simulation
@@ -119,6 +147,7 @@ public class World {
 	 */
 	public void start() {
         timer.start();
+        this.startDataCollection();
 	}
 	
 	/** Pauses the simulation
@@ -126,6 +155,7 @@ public class World {
 	 */
 	public void stop() {
 		timer.stop();
+		this.stopDataCollection();
 	}
 		
 	/**
@@ -176,10 +206,9 @@ public class World {
 	}
 	
 	/**
-	 * Stops data collection and returns computed values in a double array
-	 * @return double array with displacement, average velocity, Δx, Δy, and time elapsed
+	 * Stops data collection and enters the values into the data field computed values in a double array
 	 */
-	public double[] stopDataCollection() {
+	public void stopDataCollection() {
 		double timeElapsed = (System.currentTimeMillis() - start) * .001;
 		xF = ball.getX();
 		yF = ball.getY();
@@ -189,6 +218,36 @@ public class World {
 		double changeX = xF - xI;
 		double changeY = yF - yI;
 		
-		return new double[] {changeDisp, avgVelocity, changeX, changeY, timeElapsed};
+		data = new double[] {changeDisp, avgVelocity, changeX, changeY, timeElapsed};
+	}
+	
+	public double[] getData() {
+		return data;
+	}
+	
+	public String toString() {
+		String s = "";
+		
+		s += ball.toString();
+		
+		for (Obstacle o : obstacles) {
+			s += "\n" + o.toString();
+		}
+		
+		s += "\n" + this.getGravity();
+		
+		return s;
+	}
+	
+	public void setBall(Ball b) {
+		ball = b;
+	}
+	
+	public ArrayList<Obstacle> getObstacles() {
+		return obstacles;
+	}
+	
+	public void setObstacles(ArrayList<Obstacle> obstacles) {
+		this.obstacles = obstacles;
 	}
 }

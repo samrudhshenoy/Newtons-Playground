@@ -1,10 +1,13 @@
 package application;
 
 import java.awt.Toolkit;
+import java.io.File;
 import java.io.IOException;
 
+import application.controllers.LoadScreenController;
 import application.controllers.MainScreenController;
 import application.controllers.MenuScreenController;
+import application.controllers.SaveScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
@@ -12,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 /** The main class of the program tasked with managing and switching between windows and potentially showing new ones
  * 
@@ -21,14 +25,14 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 
 	private Stage primaryStage;
+	private MainScreenController msc;
 
 	/** Is what the program does while running, like initializing the scene with the menu on it and showing the window itself.
 	 * 
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		try {			
-
+		try {		
 			this.primaryStage = primaryStage;
 
 			FXMLLoader loader = new FXMLLoader();
@@ -49,42 +53,109 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showSaveScreen() {
+		try {
+			
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("fxml/SaveScreen.fxml"));
+			VBox pane = (VBox) loader.load();
+			SaveScreenController controller = loader.getController();
+			controller.setWorld(msc.getWorld());
 
+			Scene scene = new Scene(pane);
+
+			Stage dialogStage = new Stage();
+			dialogStage.setResizable(false);
+			dialogStage.setTitle("Data"); //Sets title to Edit Member
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setScene(scene);
+			
+			dialogStage.showAndWait();			
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		
+	}
+
+	public void showLoadScreen() {
+		try {
+			
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("fxml/LoadScreen.fxml"));
+			VBox pane = (VBox) loader.load();
+			LoadScreenController controller = loader.getController();
+			controller.setWorld(msc);
+
+			Scene scene = new Scene(pane);
+
+			Stage dialogStage = new Stage();
+			dialogStage.setResizable(false);
+			dialogStage.setTitle("Data"); //Sets title to Edit Member
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.setScene(scene);
+			
+			dialogStage.showAndWait();			
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	/** Shows the main screen of the program with the simualation and the 2 sidebars
 	 * 
 	 */
 	public void showMainScreen () {
 
-		MainScreenController msc = new MainScreenController(this);
+		msc = new MainScreenController(this);
 
 		// Create the Scene
 		Scene scene = new Scene(msc.getPane());
 
 		primaryStage.setScene(scene);
-
-
+	}
+	
+	public void showDataWindow(double[] data) {
+		Stage dialogStage = new Stage();
+		dialogStage.setResizable(false);
+		dialogStage.setTitle("Data"); //Sets title to Edit Member
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initOwner(primaryStage);
+		
+		TextArea a = new TextArea();
+		a.setText("Displacement: " + data[0] + "\n" + "Avg Velocity: " + data[1] + "\n" + "Change X: " + data[2] + "\n" + "Change Y: " + data[3] + "\n" + "Time Elapsed: " + data[4]);
+		a.setEditable(false);
+		
+		Scene scene = new Scene(a, 400, 400);
+		dialogStage.setScene(scene);
+		
+		dialogStage.showAndWait();
 	}
 
 	/** Shows the menu screen of the program
 	 * 
 	 */
 	public void showMenuScreen () {
-
+		
 		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("fxml/menuScreen.fxml"));
-			BorderPane pane = (BorderPane) loader.load();
-			MenuScreenController controller = loader.getController();
-			controller.setMain(this);
+		
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("fxml/menuScreen.fxml"));
+		BorderPane pane = (BorderPane) loader.load();
+		MenuScreenController controller = loader.getController();
+		controller.setMain(this);
+		
 
-			Scene scene = new Scene(pane);
-
-			primaryStage.setScene(scene);
-
-		} catch (IOException e) {
+		primaryStage.setScene(new Scene(pane));
+		
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 
 	}
 

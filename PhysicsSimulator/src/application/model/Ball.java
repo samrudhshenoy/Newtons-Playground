@@ -1,20 +1,22 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 //import samrudh.shapes.Line;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.Shape;
-import samarthshah.shapes.Circle;
 import samarthshah.shapes.Line;
 
-public class Ball {
+public class Ball implements Serializable{
+	
+	private static final long serialVersionUID = 2L;
+
 
 	private double x, y, r;
 	private double mass;
 	private double vx, vy;
-	private Circle circle;
+//	private Circle circle;
 	//	private ArrayList<Line> bounds;
 
 	
@@ -33,7 +35,7 @@ public class Ball {
 		r = radius;
 		this.mass = mass;
 
-		circle = new Circle(x, y, r); 
+//		circle = new Circle(x, y, r); 
 
 		vx = velocityX;
 		vy = velocityY;
@@ -91,55 +93,23 @@ public class Ball {
 	 */
 	public boolean collides(Obstacle o) {
 		Line l = o.getLine();
-		int a = Math.abs((int)(l.gety2()-l.getY()));
-		int b = (int)(l.getX2()-l.getX());
-		int c= (int)((l.getX()*l.gety2()) - (l.getX2()*l.getY()));
+		
+		double x1 = l.getX();
+		double x2 = l.getX2();
+		double y1 = l.getY();
+		double y2 = l.gety2();
+		
+		
+		int a = Math.abs((int)(y2-y1));
+		int b = (int)(x2-x1);
+		int c = (int)((x1*y2) - (x2*y1));
 
 		double dist = (Math.abs(a * x + b * y + c)) /  
 				Math.sqrt(a * a + b * b); 
-		
-//		System.out.println(x + ", " + y);
-//		
-//		System.out.println(dist);
-//		System.out.println(r);
-//		
-//		System.out.println(r/2 >= dist);
-//		System.out.println();
 				
-		return r >= dist;	
+		return r/2 >= dist;	
 	}
 	
-	/**
-	 * 
-	 * @param o 
-	 */
-	public void showDistProcess(Obstacle o) {
-		Line l = o.getLine();
-		int a = Math.abs((int)(l.gety2()-l.getY()));
-		
-		System.out.println("a = " + a);
-		int b = (int)(l.getX2()-l.getX());
-		System.out.println("b = " + b);
-
-		int c= (int)((l.getX()*l.gety2()) - (l.getX2()*l.getY()));
-
-		System.out.println("c = " + c);
-
-
-		double dist = (Math.abs(a * x + b * y + c)) /  
-				Math.sqrt(a * a + b * b); 
-		
-		
-		System.out.println(x + ", " + y);
-		
-		System.out.println(dist);
-		System.out.println(r);
-		
-		System.out.println(r/2 >= dist);
-		System.out.println();
-		
-
-	}
 	
 
 	/**
@@ -284,5 +254,8 @@ public class Ball {
 		return Math.toDegrees(Math.atan(vy/vx));
 	}
 	
+	public String toString() {
+		return "Ball: " + x + ", " + y + ": " + r;
+	}
 
 }

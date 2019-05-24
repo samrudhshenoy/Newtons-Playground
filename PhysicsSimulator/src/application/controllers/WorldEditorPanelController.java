@@ -42,7 +42,7 @@ public class WorldEditorPanelController {
     
     /** Sets the main screen controller and puts in the current values into the text fields
      * 
-     * @param main
+     * @param main the main screen controller
      */
     public void setMainAndFields(MainScreenController main) {
     	m = main;
@@ -57,7 +57,17 @@ public class WorldEditorPanelController {
     	massField.setText("" + b.getMass());
     	vxField.setText("" + b.getVX());
     	vyField.setText("" + b.getVY());
-
+    }
+    
+    public void refresh() {
+    	gravityField.setText("" + w.getGravity());
+    	
+    	xField.setText("" + b.getX());
+    	yField.setText("" + b.getY());
+    	radiusField.setText("" + b.getRadius());
+    	massField.setText("" + b.getMass());
+    	vxField.setText("" + b.getVX());
+    	vyField.setText("" + b.getVY());
     }
 
     /** Sets the fields of the world and ball when the button is pressed
@@ -80,7 +90,7 @@ public class WorldEditorPanelController {
     
     /** Checks if the inputs in the text fields for setting the values of the world and the ball are valid
      * 
-     * @return
+     * @return True if the input is valid
      */
 	public boolean isInputValid() {
 		String errorMessage = "";
