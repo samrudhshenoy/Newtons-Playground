@@ -10,10 +10,10 @@ import javafx.fxml.FXML;
  * @author samarthshah
  *
  */
-public class menuScreenController {
-	
+public class MenuScreenController {
+
 	Main m;
-	
+
 	/** Sets the main of the program to call methods
 	 * 
 	 * @param main the main of the program

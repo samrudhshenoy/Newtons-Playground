@@ -11,9 +11,9 @@ import javafx.fxml.FXML;
  *
  */
 public class MenuScreenController {
-	
+
 	Main m;
-	
+
 	/** Sets the main of the program to call methods
 	 * 
 	 * @param main the main of the program

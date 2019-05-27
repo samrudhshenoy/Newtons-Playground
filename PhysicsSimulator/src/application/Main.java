@@ -1,7 +1,5 @@
 package application;
 
-import java.awt.Toolkit;
-import java.io.File;
 import java.io.IOException;
 
 import application.controllers.LoadScreenController;
@@ -41,7 +39,7 @@ public class Main extends Application {
 			MenuScreenController controller = loader.getController();
 			controller.setMain(this);
 
-			Scene scene = new Scene(pane, Toolkit.getDefaultToolkit().getScreenSize().getWidth() , Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+			Scene scene = new Scene(pane, 1280 , 720);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 			primaryStage.setResizable(false);
@@ -53,10 +51,13 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/** Shows a new window where the user can save the current world
+	 * 
+	 */
 	public void showSaveScreen() {
 		try {
-			
+
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("fxml/SaveScreen.fxml"));
 			VBox pane = (VBox) loader.load();
@@ -71,19 +72,20 @@ public class Main extends Application {
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			dialogStage.setScene(scene);
-			
+
 			dialogStage.showAndWait();			
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		
 	}
 
+	/** Shows a new window where the user can load saved worlds
+	 * 
+	 */
 	public void showLoadScreen() {
 		try {
-			
+
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("fxml/LoadScreen.fxml"));
 			VBox pane = (VBox) loader.load();
@@ -98,15 +100,15 @@ public class Main extends Application {
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			dialogStage.setScene(scene);
-			
+
 			dialogStage.showAndWait();			
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	/** Shows the main screen of the program with the simualation and the 2 sidebars
 	 * 
 	 */
@@ -119,21 +121,25 @@ public class Main extends Application {
 
 		primaryStage.setScene(scene);
 	}
-	
+
+	/** Shows a new window with all of the data of the last play pause
+	 * 
+	 * @param data The data to show
+	 */
 	public void showDataWindow(double[] data) {
 		Stage dialogStage = new Stage();
 		dialogStage.setResizable(false);
 		dialogStage.setTitle("Data"); //Sets title to Edit Member
 		dialogStage.initModality(Modality.WINDOW_MODAL);
 		dialogStage.initOwner(primaryStage);
-		
+
 		TextArea a = new TextArea();
 		a.setText("Displacement: " + data[0] + "\n" + "Avg Velocity: " + data[1] + "\n" + "Change X: " + data[2] + "\n" + "Change Y: " + data[3] + "\n" + "Time Elapsed: " + data[4]);
 		a.setEditable(false);
-		
+
 		Scene scene = new Scene(a, 400, 400);
 		dialogStage.setScene(scene);
-		
+
 		dialogStage.showAndWait();
 	}
 
@@ -141,18 +147,18 @@ public class Main extends Application {
 	 * 
 	 */
 	public void showMenuScreen () {
-		
-		try {
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("fxml/menuScreen.fxml"));
-		BorderPane pane = (BorderPane) loader.load();
-		MenuScreenController controller = loader.getController();
-		controller.setMain(this);
-		
 
-		primaryStage.setScene(new Scene(pane));
-		
+		try {
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("fxml/menuScreen.fxml"));
+			BorderPane pane = (BorderPane) loader.load();
+			MenuScreenController controller = loader.getController();
+			controller.setMain(this);
+
+
+			primaryStage.setScene(new Scene(pane));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -193,7 +199,7 @@ public class Main extends Application {
 
 	/** The main method that runs the program
 	 * 
-	 * @param args
+	 * @param args idk
 	 */
 	public static void main(String[] args) {
 		launch(args);

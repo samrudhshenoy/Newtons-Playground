@@ -10,9 +10,9 @@ import javafx.scene.control.TextField;
  *
  */
 public class ObjectAdderPanelController {
-	
+
 	private MainScreenController m;
-	
+
 	@FXML TextField xField;
 	@FXML TextField yField;
 	@FXML TextField angleField;
@@ -25,13 +25,13 @@ public class ObjectAdderPanelController {
 	public void setController(MainScreenController main) {
 		m = main;
 	}
-	
+
 	/** Handles what to do if the add button is pressed
 	 * 
 	 * @param event
 	 */
 	@FXML
-    void handleAdd(ActionEvent event) {
+	void handleAdd(ActionEvent event) {
 		if (isInputValid()) {
 			double x = Double.parseDouble(xField.getText());
 			double y = Double.parseDouble(yField.getText());
@@ -41,22 +41,33 @@ public class ObjectAdderPanelController {
 
 		}
 	}
-	
+
+	/** Saves the current world to a file when that button is pressed
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void handleSave(ActionEvent event) {
 		m.getMain().showSaveScreen();
 	}
-	
+
+	/** Loads the world in the file thats name is entered in the window that opens up
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void handleLoad(ActionEvent event) {
 		m.getMain().showLoadScreen();
 	}
-	
+
+	/** Shows a new window with the data from the last play pause time
+	 * 
+	 */
 	@FXML
 	void handleShowData() {
 		m.getMain().showDataWindow(m.getWorld().getData());
 	}
-	
+
 	/** Pauses the simulation when the button is pressed
 	 * 
 	 * @param event
@@ -65,7 +76,7 @@ public class ObjectAdderPanelController {
 	void handlePause(ActionEvent event) {
 		m.pause();
 	}
-	
+
 	/** Plays the simulation when the button is pressed
 	 * 
 	 * @param event
@@ -74,7 +85,7 @@ public class ObjectAdderPanelController {
 	void handlePlay(ActionEvent event) {
 		m.play();
 	}
-	
+
 	/** Goes back to the main menu when the button is pressed
 	 * 
 	 * @param event
@@ -83,7 +94,7 @@ public class ObjectAdderPanelController {
 	void handleBack(ActionEvent event) {
 		m.getMain().showMenuScreen();
 	}
-	
+
 	/** Resets the obstacles when the button is pressed
 	 * 
 	 * @param event
@@ -110,7 +121,7 @@ public class ObjectAdderPanelController {
 				errorMessage += "No valid x!\n";
 			}
 		}
-		
+
 		if(yField.getText() == null || yField.getText().length() == 0) {
 			errorMessage += "No valid grade!\n";
 		} else{
@@ -120,7 +131,7 @@ public class ObjectAdderPanelController {
 				errorMessage += "No valid grade!\n";
 			}
 		}
-		
+
 		if(angleField.getText() == null || angleField.getText().length() == 0) {
 			errorMessage += "No valid x!\n";
 		} else{
@@ -130,7 +141,7 @@ public class ObjectAdderPanelController {
 				errorMessage += "No valid x!\n";
 			}
 		}
-		
+
 		if(lengthField.getText() == null || lengthField.getText().length() == 0) {
 			errorMessage += "No valid grade!\n";
 		} else{
@@ -140,23 +151,17 @@ public class ObjectAdderPanelController {
 				errorMessage += "No valid grade!\n";
 			}
 		}
-		
-		
+
+
 
 		//if there is no error message, returns true
 		if (errorMessage.length() == 0) {
 			return true;
 		} else { //if there is an error message, create alert with error messages printed
-//			Alert alert = new Alert(AlertType.ERROR);
-//			alert.initOwner(s);
-//			alert.setTitle("Invalid Fields");
-//			alert.setHeaderText("Please correct invalid fields");
-//			alert.setContentText(errorMessage);
-//			alert.showAndWait();
 
 			return false;
 		}
 	}
-    
+
 
 }

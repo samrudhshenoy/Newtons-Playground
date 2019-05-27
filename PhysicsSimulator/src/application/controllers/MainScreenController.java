@@ -20,24 +20,24 @@ import javafx.scene.layout.VBox;
  *
  */
 public class MainScreenController implements Serializable {
-	
+
 	private static final long serialVersionUID = 100L;
 
-	
+
 	private Main m;
 	private BorderPane pane;
 	private World world;
 	private WorldEditorPanelController wepc;
-	
+
 	/** Creates a new main screen
 	 * 
 	 * @param m The main of the program
 	 */
 	public MainScreenController(Main m) {
-				
+
 		this.m = m;
 		pane = new BorderPane();
-		
+
 		world = new World(this);
 		Canvas canvas = world.getCanvas();
 
@@ -46,60 +46,63 @@ public class MainScreenController implements Serializable {
 
 		// Add the Canvas to the Pane
 		root.getChildren().add(canvas);
-		
-		pane.setCenter(root);
-		
-		try {
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("fxml/ObjectAdderPanel.fxml"));
-		VBox vbox = (VBox) loader.load();
-		
-		ObjectAdderPanelController controller = loader.getController();
-		controller.setController(this);
-		
-		pane.setLeft(vbox);
 
-		
+		pane.setCenter(root);
+
+		try {
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("fxml/ObjectAdderPanel.fxml"));
+			VBox vbox = (VBox) loader.load();
+
+			ObjectAdderPanelController controller = loader.getController();
+			controller.setController(this);
+
+			pane.setLeft(vbox);
+
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("fxml/WorldEditorPanel.fxml"));
-		VBox vbox = (VBox) loader.load();
-		
-		wepc = loader.getController();
-		wepc.setMainAndFields(this);
-		
-		pane.setRight(vbox);
 
-		
+		try {
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("fxml/WorldEditorPanel.fxml"));
+			VBox vbox = (VBox) loader.load();
+
+			wepc = loader.getController();
+			wepc.setMainAndFields(this);
+
+			pane.setRight(vbox);
+
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
 	}
-	
+
+	/** Refreshes the world bar with the ball values as they change
+	 * 
+	 */
 	public void refreshWorldBar() {
 		wepc.refresh();
 	}
-	
+
 	/** Pauses the simulation
 	 * 
 	 */
 	public void pause() {
 		world.stop();
 	}
-	
+
 	/** Starts the simulation
 	 * 
 	 */
 	public void play() {
 		world.start();	
 	}
-	
+
 	/** Creates a new obstacle in the world
 	 * 
 	 * @param x The x value of the first point
@@ -110,16 +113,16 @@ public class MainScreenController implements Serializable {
 	public void addNewObstacle(double x ,double y, double angle, double length) {
 		world.addNewObstacle(x, y, angle, length);
 	}
-	
+
 	public void setWorld(World w) {
 		world.setBall(w.getBall());
-		
+
 		ArrayList<Obstacle> newObstacles = w.getObstacles();
-		
+
 		for (Obstacle o: newObstacles) {
 			o.generateLine();
 		}
-		
+
 		world.setObstacles(newObstacles);
 		world.setGravity(w.getGravity());
 	}
@@ -131,7 +134,7 @@ public class MainScreenController implements Serializable {
 	public BorderPane getPane() {
 		return pane;
 	}
-	
+
 	/**
 	 * 
 	 * @return The simulation to be used by the 2 sidebars
@@ -139,7 +142,7 @@ public class MainScreenController implements Serializable {
 	public World getWorld() {
 		return world;
 	}
-	
+
 	/**
 	 * 
 	 * @return The main to be used for going back to the main menu

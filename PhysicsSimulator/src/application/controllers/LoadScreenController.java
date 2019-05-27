@@ -8,6 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
+/** The class that controlls the loading of saved experiments
+ * 
+ * @author samarthshah
+ *
+ */
 public class LoadScreenController {
 
 	@FXML
@@ -15,27 +20,35 @@ public class LoadScreenController {
 	private World w;
 	private MainScreenController msc;
 
+	/**
+	 * 
+	 * @param msc The controller of the main screen used to set the world when loaded
+	 */
 	public void setWorld(MainScreenController msc) {
 		this.msc = msc;
 		w = msc.getWorld();
 	}
 
+	/** Loads the serialized the world from the loade file and sets the world in the screen to it
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void handleLoad(ActionEvent event) {
 		if (isInputValid()) {
 
 			try {
-				
-				 FileInputStream fileIn = new FileInputStream("saves/" + saveNameField.getText() + ".ser");
-		         ObjectInputStream in = new ObjectInputStream(fileIn);
-		         w = (World) in.readObject();
-		         in.close();
-		         fileIn.close();
-		         
-		         msc.setWorld(w);
-		         System.out.println(w.toString());
-				
-				
+
+				FileInputStream fileIn = new FileInputStream("saves/" + saveNameField.getText() + ".ser");
+				ObjectInputStream in = new ObjectInputStream(fileIn);
+				w = (World) in.readObject();
+				in.close();
+				fileIn.close();
+
+				msc.setWorld(w);
+				System.out.println(w.toString());
+
+
 			} catch (IOException | ClassNotFoundException e ) {
 				e.printStackTrace();
 			}
@@ -45,7 +58,7 @@ public class LoadScreenController {
 
 	/** 
 	 * 
-	 * @return True if the inputs in the fields are valid for creating a new obstacle
+	 * @return True if the inputs in the fields are valid for loading the world
 	 */
 	public boolean isInputValid() {
 		String errorMessage = "";

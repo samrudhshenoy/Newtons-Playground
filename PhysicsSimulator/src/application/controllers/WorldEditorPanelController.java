@@ -16,26 +16,13 @@ public class WorldEditorPanelController {
 	private	MainScreenController m;
 
 
-    @FXML
-    private TextField gravityField;
-
-    @FXML
-    private TextField xField;
-
-    @FXML
-    private TextField yField;
-
-    @FXML
-    private TextField radiusField;
-
-    @FXML
-    private TextField massField;
-
-    @FXML
-    private TextField vxField;
-
-    @FXML
-    private TextField vyField;
+    @FXML private TextField gravityField;
+    @FXML private TextField xField;
+    @FXML private TextField yField;
+    @FXML private TextField radiusField;
+    @FXML private TextField massField;
+    @FXML private TextField vxField;
+    @FXML private TextField vyField;
     
     private World w;
     private Ball b;
@@ -59,6 +46,9 @@ public class WorldEditorPanelController {
     	vyField.setText("" + b.getVY());
     }
     
+    /** Refreshed the textfields to the current values
+     * 
+     */
     public void refresh() {
     	gravityField.setText("" + w.getGravity());
     	

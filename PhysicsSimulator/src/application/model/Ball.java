@@ -1,5 +1,10 @@
 package application.model;
 
+/** The class of the ball that moves around in the world based on the forces acting on it
+ * 
+ * @author samarthshah
+ *
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,17 +14,15 @@ import javafx.scene.canvas.GraphicsContext;
 import samarthshah.shapes.Line;
 
 public class Ball implements Serializable{
-	
+
 	private static final long serialVersionUID = 2L;
 
 
 	private double x, y, r;
 	private double mass;
 	private double vx, vy;
-//	private Circle circle;
-	//	private ArrayList<Line> bounds;
 
-	
+
 	/** Creates a new ball with the values
 	 *  
 	 * @param xVal The initial x value
@@ -35,17 +38,8 @@ public class Ball implements Serializable{
 		r = radius;
 		this.mass = mass;
 
-//		circle = new Circle(x, y, r); 
-
 		vx = velocityX;
 		vy = velocityY;
-
-		//		bounds = new ArrayList<Line>();
-		//		
-		//		bounds.add(new Line(x, y, x+radius*2, y));
-		//		bounds.add(new Line(x, y+radius*2, x+radius*2, y+radius*2));
-		//		bounds.add(new Line(x, y, x, y+radius*2));
-		//		bounds.add(new Line(x+radius*2, y, x+radius*2, y+radius*2));
 	}
 
 	/** Changes the velocity and the position based on the forces acting on the ball
@@ -68,11 +62,8 @@ public class Ball implements Serializable{
 		resultantX = ((int)resultantX*100)/100.0;
 		resultantY = ((int)resultantY*100)/100.0;
 
-			vx += resultantX/mass;
-			vy += resultantY/mass;
-
-//		System.out.println(vx);
-//		System.out.println(vy);
+		vx += resultantX/mass;
+		vy += resultantY/mass;
 
 		x += vx/60;
 		y -= vy/60;		
@@ -85,7 +76,7 @@ public class Ball implements Serializable{
 	public void draw(GraphicsContext gc) {
 		gc.fillOval(x, y, r, r);
 	}
-	
+
 	/** Checks if the ball is colliding with the obstacle
 	 * 
 	 * @param o The obstacles to check for collision
@@ -93,24 +84,42 @@ public class Ball implements Serializable{
 	 */
 	public boolean collides(Obstacle o) {
 		Line l = o.getLine();
-		
+
 		double x1 = l.getX();
 		double x2 = l.getX2();
 		double y1 = l.getY();
 		double y2 = l.gety2();
-		
-		
-		int a = Math.abs((int)(y2-y1));
-		int b = (int)(x2-x1);
-		int c = (int)((x1*y2) - (x2*y1));
 
-		double dist = (Math.abs(a * x + b * y + c)) /  
-				Math.sqrt(a * a + b * b); 
-				
-		return r/2 >= dist;	
-	}
-	
-	
+		double A = x - x1;
+		double B = y - y1;
+		double C = x2 - x1;
+		double D = y2 - y1;
+
+		double dot = A * C + B * D;
+		double len_sq = C * C + D * D;
+		double param = -1;
+		if (len_sq != 0) //in case of 0 length line
+			param = dot / len_sq;
+
+		double xx, yy;
+
+		if (param < 0) {
+			xx = x1;
+			yy = y1;
+		}
+		else if (param > 1) {
+			xx = x2;
+			yy = y2;
+		}
+		else {
+			xx = x1 + param * C;
+			yy = y1 + param * D;
+		}
+
+		double dx = x - xx;
+		double dy = y - yy;
+		return r/2 >= Math.sqrt(dx * dx + dy * dy);
+	}	
 
 	/**
 	 * Changes the y component of velocity for a bounce in the vertical direction
@@ -121,19 +130,19 @@ public class Ball implements Serializable{
 		} else {
 			y -= 1;
 		}
-		
+
 		vy *= -0.9;
-//		vy = 0;
-//		y = 100;
+		//		vy = 0;
+		//		y = 100;
 	}
-	
+
 	/**
 	 * Changes the x component of velocity for a bounce in the horizontal direction
 	 */
 	public void bounceX() {
-		vx *= -.9;
+		vx *= -1;
 	}
-	
+
 	/**
 	 *  
 	 * @return The x value of the ball
@@ -253,7 +262,10 @@ public class Ball implements Serializable{
 	public double getAngle() {
 		return Math.toDegrees(Math.atan(vy/vx));
 	}
-	
+
+	/**
+	 * @return A string representation of the ball
+	 */
 	public String toString() {
 		return "Ball: " + x + ", " + y + ": " + r;
 	}
