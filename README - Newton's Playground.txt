@@ -94,9 +94,9 @@ Stretch:
 
 Credits:
 
-- Samrudh Shenoy: making most of the math work like the angles and the forces currently on the ball
-- Samarth Shah: making the UI as well as the basic parts of the model like the force class, writing readme, and making uml
-- Mrs. Shreve: for helping us with angles because we had no idea how to do that in terms of adding a new force
+- Samrudh Shenoy: Calculation of angles and forces, readme file
+- Samarth Shah: User interface, writing of most model classes, UML diagram
+- Mrs. Shreve: Help with angles and forces, because we did not have much direction (pun intended) to start with
 - Websites we used:
 	Collisions: https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
 	Animations/Graphics: https://netopyr.com/2012/06/14/using-the-javafx-animationtimer/
