@@ -94,7 +94,7 @@ Stretch:
 
 Credits:
 
-- Samrudh Shenoy: Calculation of angles and forces, readme file
+- Samrudh Shenoy: Calculation of angles and forces, theme css file, readme file
 - Samarth Shah: User interface, writing of most model classes, UML diagram
 - Mrs. Shreve: Help with angles and forces, because we did not have much direction (pun intended) to start with
 - Websites we used:
