@@ -199,6 +199,7 @@ public class Main extends Application {
 				"		- Remove all obstacles currently displayed on the screen\n" + 
 				"	- Right side bar:\n" + 
 				"		- Set the gravitational acceleration of the world\n" + 
+				"		- Set the playback speed of the simulation (from 0x to 2x)\n" + 
 				"		- Set the (X, Y) coordinates of the ball\n" + 
 				"		- Set the radius of the ball\n" + 
 				"		- Set the mass of the ball\n" + 

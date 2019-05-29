@@ -160,12 +160,12 @@ public class World implements Serializable {
 	 * 
 	 */
 	public void resetObstacles() {
-		obstacles.clear();
+		obstacles = new ArrayList<Obstacle>();
 		obstacles.add(new Obstacle(0, 0, 0, canvas.getWidth()));
-		obstacles.add(new Obstacle(0, 0, 90, canvas.getHeight()));
-		obstacles.add(new Obstacle(canvas.getWidth(), 720, 270, canvas.getHeight()));
+		obstacles.add(new Obstacle(0, 0, 270, canvas.getHeight()));
+		obstacles.add(new Obstacle(canvas.getWidth(), canvas.getHeight(), 90, canvas.getHeight()));
 		obstacles.add(new Obstacle(0, canvas.getHeight(), 0, canvas.getWidth()));
-
+		
 		for (Obstacle o: obstacles) {
 			o.drawLine(gc);
 		}

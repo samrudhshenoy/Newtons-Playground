@@ -35,7 +35,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0">
          <children>
-            <Label text="Speed:">
+            <Label text="Playback Speed:">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
