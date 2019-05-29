@@ -5,10 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.WorldEditorPanelController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.152" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.WorldEditorPanelController">
    <children>
       <Label prefHeight="70.0" prefWidth="280.0" text="World">
          <font>
@@ -18,8 +19,42 @@
             <Insets left="10.0" />
          </padding>
       </Label>
-      <TextField fx:id="gravityField" promptText="Gravity" />
-      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label text="Gravity: ">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="gravityField" promptText="Gravity">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label text="Speed:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="speedField" promptText="Speed">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Separator>
       <Label prefHeight="70.0" prefWidth="280.0" text="Ball">
          <font>
             <Font size="24.0" />
@@ -28,12 +63,105 @@
             <Insets left="10.0" />
          </padding>
       </Label>
-      <TextField promptText="X" fx:id="xField" />
-      <TextField fx:id="yField" promptText="Y" />
-      <TextField fx:id="radiusField" promptText="Radius" />
-      <TextField fx:id="massField" promptText="Mass" />
-      <TextField fx:id="vxField" promptText="VX" />
-      <TextField fx:id="vyField" promptText="VY" />
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label text="X:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField promptText="X" fx:id="xField">
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label text="Y:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="yField" promptText="Y">
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label text="Radius:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="radiusField" promptText="Radius">
+               <HBox.margin>
+                  <Insets left="7.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label text="Mass:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="massField" promptText="Mass">
+               <HBox.margin>
+                  <Insets left="16.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label text="VX:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="vxField" promptText="VX">
+               <HBox.margin>
+                  <Insets left="31.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label text="VY:">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="vyField" promptText="VY">
+               <HBox.margin>
+                  <Insets left="31.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </HBox>
       <Button mnemonicParsing="false" onAction="#handleSet" text="Set" textAlignment="CENTER">
          <VBox.margin>
             <Insets left="120.0" top="5.0" />

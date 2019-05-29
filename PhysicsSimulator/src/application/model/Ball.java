@@ -44,9 +44,10 @@ public class Ball implements Serializable{
 
 	/** Changes the velocity and the position based on the forces acting on the ball
 	 * 
+	 * @param speed The current speed of the simulation
 	 * @param actingForces The forces acting on the ball at that moment
 	 */
-	public void act(ArrayList<Force> actingForces) {
+	public void act(double speed, ArrayList<Force> actingForces) {
 
 		double resultantX = 0.0, resultantY = 0.0;
 
@@ -62,11 +63,11 @@ public class Ball implements Serializable{
 		resultantX = ((int)resultantX*100)/100.0;
 		resultantY = ((int)resultantY*100)/100.0;
 
-		vx += resultantX/mass;
-		vy += resultantY/mass;
+		vx += resultantX/mass*Math.sqrt(speed);
+		vy += resultantY/mass*Math.sqrt(speed);
 
-		x += vx/60;
-		y -= vy/60;		
+		x += vx/60*Math.sqrt(speed);
+		y -= vy/60*Math.sqrt(speed);		
 	}
 
 	/**  Draws the ball on the canvas using the graphics context
@@ -125,21 +126,27 @@ public class Ball implements Serializable{
 	 * Changes the y component of velocity for a bounce in the vertical direction
 	 */
 	public void bounceY() {
-		if (vx < 0) {
-			y += 1;
-		} else {
-			y -= 1;
+		
+		if (vy > 800) {
+			vy = 799.9;
+		} else if (vy < -800) {
+			vy = -799.9;
 		}
 
-		vy *= -0.9;
-		//		vy = 0;
-		//		y = 100;
+		vy *= -1;
 	}
 
 	/**
 	 * Changes the x component of velocity for a bounce in the horizontal direction
 	 */
 	public void bounceX() {
+		
+		if (vx > 800) {
+			vx = 799.9;
+		} else if (vx < -800) {
+			vx = -799.9;
+		}
+		
 		vx *= -1;
 	}
 
@@ -260,7 +267,14 @@ public class Ball implements Serializable{
 	 * @return The total angle of the velocity of the ball
 	 */
 	public double getAngle() {
-		return Math.toDegrees(Math.atan(vy/vx));
+		double a = Math.toDegrees(Math.atan(vy/vx));
+		if (vx < 0) {
+			if (vy > 0 || a > 0)
+				return 180 + a;
+		}
+		
+		
+		return a;
 	}
 
 	/**

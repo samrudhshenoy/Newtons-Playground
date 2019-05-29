@@ -2,7 +2,9 @@ package application.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 /** The class that controls the sidebar that can be used for actions or adding new obstacles
  * 
@@ -123,32 +125,32 @@ public class ObjectAdderPanelController {
 		}
 
 		if(yField.getText() == null || yField.getText().length() == 0) {
-			errorMessage += "No valid grade!\n";
+			errorMessage += "No valid y!\n";
 		} else{
 			try{
 				Double.parseDouble(yField.getText());
 			} catch (NumberFormatException e){
-				errorMessage += "No valid grade!\n";
+				errorMessage += "No valid y!\n";
 			}
 		}
 
 		if(angleField.getText() == null || angleField.getText().length() == 0) {
-			errorMessage += "No valid x!\n";
+			errorMessage += "No valid angle!\n";
 		} else{
 			try{
 				Double.parseDouble(angleField.getText());
 			} catch (NumberFormatException e){
-				errorMessage += "No valid x!\n";
+				errorMessage += "No valid angle!\n";
 			}
 		}
 
 		if(lengthField.getText() == null || lengthField.getText().length() == 0) {
-			errorMessage += "No valid grade!\n";
+			errorMessage += "No valid length!\n";
 		} else{
 			try{
 				Double.parseDouble(lengthField.getText());
 			} catch (NumberFormatException e){
-				errorMessage += "No valid grade!\n";
+				errorMessage += "No valid length!\n";
 			}
 		}
 
@@ -159,6 +161,11 @@ public class ObjectAdderPanelController {
 			return true;
 		} else { //if there is an error message, create alert with error messages printed
 
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(errorMessage);
+			alert.showAndWait();
+			
 			return false;
 		}
 	}

@@ -27,6 +27,7 @@ public class World implements Serializable {
 
 	private Ball ball;
 	private ArrayList<Obstacle> obstacles;
+	private double speed;
 	private double gravityMag;
 	private double[] data;
 
@@ -41,6 +42,7 @@ public class World implements Serializable {
 
 		ball = new Ball(100, 100, 20, 100, 0.0, 0.0);
 		gravityMag = 9.81;
+		speed = 1.0;
 
 		data = new double[] {0, 0, 0, 0, 0};
 
@@ -75,23 +77,63 @@ public class World implements Serializable {
 					o.drawLine(gc);
 
 					if (ball.collides(o)) {
+												
 						if (o.getNormalAngle() == 90)
 							ball.bounceY();
 						else if (o.getNormalAngle() == 0 || Math.abs(o.getNormalAngle()) == 180) {
 							ball.bounceX();
 						} else {
+							
 							double bAngle = ball.getAngle();
 							double oAngle = 180 - o.getNormalAngle();
+							
 
+							if (bAngle < oAngle + 90 && bAngle > oAngle - 90) {
+								double fAngle = (oAngle) + (oAngle - bAngle);
+
+								if (o.getAngle() < 90 && o.getAngle() > 0)
+									ball.setVX(-Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(fAngle*Math.PI/180))));
+
+								else if (-o.getAngle() > 90 && -o.getAngle() < 180)
+									ball.setVX(-Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(fAngle*Math.PI/180))));
+									
+								else
+									ball.setVX(Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(fAngle*Math.PI/180))));
+								
+								ball.setVY(-Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.sin(fAngle*Math.PI/180))));
+
+							}
+							
+							else {
+							
 							double fAngle = (oAngle) + (oAngle - bAngle);
 
-							ball.setVX(-Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(fAngle*Math.PI/180))));
+							if (o.getAngle() < 90 && o.getAngle() > 0)
+								ball.setVX(Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(fAngle*Math.PI/180))));
+
+							else if (-o.getAngle() > 90 && -o.getAngle() < 180)
+								ball.setVX(Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(fAngle*Math.PI/180))));
+								
+							else
+								ball.setVX(-Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.cos(fAngle*Math.PI/180))));
+							
 							ball.setVY(Math.sqrt(Math.abs((Math.pow(ball.getVelocity(), 2))*Math.sin(fAngle*Math.PI/180))));
+							}
 						}
 					}
 				}
 
-				ball.act(forces);
+				if (ball.getVX() > 800)
+					ball.setVX(800);
+				if (ball.getVY() > 800)
+					ball.setVY(800);
+				if (ball.getVX() < -800)
+					ball.setVX(-800);
+				if (ball.getVY() < -800)
+					ball.setVY(-800);
+				
+				
+				ball.act(speed, forces);
 
 				msc.refreshWorldBar();
 			}
@@ -159,6 +201,22 @@ public class World implements Serializable {
 	 */
 	public double getGravity() {
 		return gravityMag;
+	}
+	
+	/**
+	 * 
+	 * @return A double with the current speed of the simulation
+	 */
+	public double getSpeed() {
+		return speed;
+	}
+	
+	/**
+	 * 
+	 * @param s The values to the speed of the simulation to
+	 */
+	public void setSpeed(double s) {
+		speed = s;
 	}
 
 	/**

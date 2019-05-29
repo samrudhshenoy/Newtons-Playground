@@ -114,6 +114,10 @@ public class MainScreenController implements Serializable {
 		world.addNewObstacle(x, y, angle, length);
 	}
 
+	/** Sets the current world to the one entered as a parameter
+	 * 
+	 * @param w The new world to set the simulation to
+	 */
 	public void setWorld(World w) {
 		world.setBall(w.getBall());
 

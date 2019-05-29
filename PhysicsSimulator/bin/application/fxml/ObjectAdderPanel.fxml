@@ -5,10 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ObjectAdderPanelController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.152" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ObjectAdderPanelController">
    <children>
       <Label prefHeight="70.0" prefWidth="280.0" text="Actions">
          <font>
@@ -58,13 +59,86 @@
             <Insets left="10.0" />
          </padding>
       </Label>
-      <TextField promptText="X" fx:id="xField" />
-      <TextField fx:id="yField" promptText="Y" />
-      <TextField fx:id="angleField" promptText="Angle" />
-      <TextField fx:id="lengthField" promptText="Length" />
+      <HBox>
+         <children>
+            <Label prefWidth="280.0" text="X:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <TextField prefWidth="400.0" promptText="X" fx:id="xField">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefWidth="200.0">
+         <children>
+            <Label prefWidth="280.0" text="Y:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="yField" prefWidth="400.0" promptText="Y">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefWidth="200.0">
+         <children>
+            <Label prefWidth="280.0" text="Angle:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="angleField" prefWidth="400.0" promptText="Angle">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefWidth="200.0">
+         <children>
+            <Label prefWidth="280.0" text="Length:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="lengthField" prefWidth="400.0" promptText="Length">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </HBox>
       <Button mnemonicParsing="false" onAction="#handleAdd" text="Add" textAlignment="CENTER">
          <VBox.margin>
-            <Insets left="120.0" top="5.0" />
+            <Insets left="120.0" top="10.0" />
          </VBox.margin>
       </Button>
       <Button mnemonicParsing="false" onAction="#handleReset" text="Reset" textAlignment="CENTER">

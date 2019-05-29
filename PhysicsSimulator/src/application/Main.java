@@ -36,6 +36,8 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("fxml/menuScreen.fxml"));
 			BorderPane pane = (BorderPane) loader.load();
+//			pane.setStyle("-fx-background-color: #4c4c4c;");
+
 			MenuScreenController controller = loader.getController();
 			controller.setMain(this);
 
@@ -65,6 +67,8 @@ public class Main extends Application {
 			controller.setWorld(msc.getWorld());
 
 			Scene scene = new Scene(pane);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
 
 			Stage dialogStage = new Stage();
 			dialogStage.setResizable(false);
@@ -93,6 +97,8 @@ public class Main extends Application {
 			controller.setWorld(msc);
 
 			Scene scene = new Scene(pane);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
 
 			Stage dialogStage = new Stage();
 			dialogStage.setResizable(false);
@@ -115,8 +121,6 @@ public class Main extends Application {
 	public void showMainScreen () {
 
 		msc = new MainScreenController(this);
-
-		// Create the Scene
 		Scene scene = new Scene(msc.getPane());
 
 		primaryStage.setScene(scene);
@@ -138,6 +142,8 @@ public class Main extends Application {
 		a.setEditable(false);
 
 		Scene scene = new Scene(a, 400, 400);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
 		dialogStage.setScene(scene);
 
 		dialogStage.showAndWait();
@@ -156,8 +162,11 @@ public class Main extends Application {
 			MenuScreenController controller = loader.getController();
 			controller.setMain(this);
 
+			Scene scene = new Scene(pane);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
-			primaryStage.setScene(new Scene(pane));
+			
+			primaryStage.setScene(scene);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -177,16 +186,29 @@ public class Main extends Application {
 		dialogStage.initModality(Modality.WINDOW_MODAL);
 		dialogStage.initOwner(primaryStage);
 
-		String helpString = "Instructions:\n" + 
-				"- Press \"Start\" to begin a new game" + 
-				"- Actions are listed in the top left corner\n" + 
-				"- Create or clear obstacles on the left panel\n" + 
-				"- Alter the world's graity on the right panel\n" +
-				"- Modify the ball's position, mass, and angle on the right panel\n";
+		String helpString = "Once program is launched:\n" + 
+				"- Press \"Exit\" to exit the program\n" + 
+				"- Press \"Help\" to view a detailed set of instructions\n" + 
+				"- Press \"Start\" to enter the simulator\n" + 
+				"* Note: Our program assumes a perfect physics world, so there is no decrease of the ball's total velocity because total mechanical energy is conserved\n" + 
+				"	- Left side bar:\n" + 
+				"		- Save/Load an experiment with a user-determined name\n" + 
+				"		- Play/Pause an experiment at a desired time\n" + 
+				"		- View specific data collected within the time that the game was played and paused\n" + 
+				"		- Create a new obstacle with a given coordinate start point, an angle, and a length\n" + 
+				"		- Remove all obstacles currently displayed on the screen\n" + 
+				"	- Right side bar:\n" + 
+				"		- Set the gravitational acceleration of the world\n" + 
+				"		- Set the (X, Y) coordinates of the ball\n" + 
+				"		- Set the radius of the ball\n" + 
+				"		- Set the mass of the ball\n" + 
+				"		- Set the current x-directional velocity of the ball\n" + 
+				"		- Set the current y-directional velocity of the ball";
+		
 
 		TextArea text = new TextArea(helpString);
 		text.setEditable(false);
-		text.setMinSize(400, 400);
+		text.setMinSize(900, 600);
 		text.setWrapText(true);
 		BorderPane pane = new BorderPane();
 		pane.setTop(text);

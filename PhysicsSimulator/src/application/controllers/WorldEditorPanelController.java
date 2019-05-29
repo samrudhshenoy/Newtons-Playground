@@ -4,7 +4,9 @@ import application.model.Ball;
 import application.model.World;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 /** The class that controls the sidebar that can be used for setting fields of the world and the vall
  * 
@@ -14,18 +16,18 @@ import javafx.scene.control.TextField;
 public class WorldEditorPanelController {
 	
 	private	MainScreenController m;
-
-
+    private World w;
+    private Ball b;
+    
     @FXML private TextField gravityField;
+    @FXML private TextField speedField;
     @FXML private TextField xField;
     @FXML private TextField yField;
     @FXML private TextField radiusField;
     @FXML private TextField massField;
     @FXML private TextField vxField;
     @FXML private TextField vyField;
-    
-    private World w;
-    private Ball b;
+
     
     /** Sets the main screen controller and puts in the current values into the text fields
      * 
@@ -37,7 +39,7 @@ public class WorldEditorPanelController {
     	b = w.getBall();
     	
     	gravityField.setText("" + w.getGravity());
-    	
+    	speedField.setText("" + w.getSpeed());
     	xField.setText("" + b.getX());
     	yField.setText("" + b.getY());
     	radiusField.setText("" + b.getRadius());
@@ -51,7 +53,7 @@ public class WorldEditorPanelController {
      */
     public void refresh() {
     	gravityField.setText("" + w.getGravity());
-    	
+    	speedField.setText("" + w.getSpeed());
     	xField.setText("" + b.getX());
     	yField.setText("" + b.getY());
     	radiusField.setText("" + b.getRadius());
@@ -68,6 +70,7 @@ public class WorldEditorPanelController {
     void handleSet(ActionEvent event) {
     	if (isInputValid()) {
     		w.setGravity(Double.parseDouble(gravityField.getText()));
+    		w.setSpeed(Double.parseDouble(speedField.getText()));
     		b.setX(Double.parseDouble(xField.getText()));
     		b.setY(Double.parseDouble(yField.getText()));
     		b.setRadius(Double.parseDouble(radiusField.getText()));
@@ -84,6 +87,29 @@ public class WorldEditorPanelController {
      */
 	public boolean isInputValid() {
 		String errorMessage = "";
+		
+		if(gravityField.getText() == null || gravityField.getText().length() == 0) {
+			errorMessage += "No valid graivty!\n";
+		} else{
+			try{
+				Double.parseDouble(gravityField.getText());
+			} catch (NumberFormatException e){
+				errorMessage += "No valid gravity!\n";
+			}
+		}
+		
+		if(speedField.getText() == null || speedField.getText().length() == 0) {
+			errorMessage += "No valid speed!\n";
+		} else{
+			try{
+				double d = Double.parseDouble(speedField.getText());
+				if (d < 0 || d > 2) {
+					errorMessage += "No valid speed!\n";
+				}
+			} catch (NumberFormatException e){
+				errorMessage += "No valid speed!\n";
+			}
+		}
 
 		if(xField.getText() == null || xField.getText().length() == 0) {
 			errorMessage += "No valid x!\n";
@@ -96,52 +122,52 @@ public class WorldEditorPanelController {
 		}
 		
 		if(yField.getText() == null || yField.getText().length() == 0) {
-			errorMessage += "No valid grade!\n";
+			errorMessage += "No valid y!\n";
 		} else{
 			try{
 				Double.parseDouble(yField.getText());
 			} catch (NumberFormatException e){
-				errorMessage += "No valid grade!\n";
+				errorMessage += "No valid y!\n";
 			}
 		}
 		
 		if(radiusField.getText() == null || radiusField.getText().length() == 0) {
-			errorMessage += "No valid x!\n";
+			errorMessage += "No valid r!\n";
 		} else{
 			try{
 				Double.parseDouble(radiusField.getText());
 			} catch (NumberFormatException e){
-				errorMessage += "No valid x!\n";
+				errorMessage += "No valid r!\n";
 			}
 		}
 		
 		if(massField.getText() == null || massField.getText().length() == 0) {
-			errorMessage += "No valid grade!\n";
+			errorMessage += "No valid mass!\n";
 		} else{
 			try{
 				Double.parseDouble(massField.getText());
 			} catch (NumberFormatException e){
-				errorMessage += "No valid grade!\n";
+				errorMessage += "No valid mass!\n";
 			}
 		}
 		
 		if(vxField.getText() == null || vxField.getText().length() == 0) {
-			errorMessage += "No valid x!\n";
+			errorMessage += "No valid vx!\n";
 		} else{
 			try{
 				Double.parseDouble(vxField.getText());
 			} catch (NumberFormatException e){
-				errorMessage += "No valid x!\n";
+				errorMessage += "No valid vx!\n";
 			}
 		}
 		
 		if(vyField.getText() == null || vyField.getText().length() == 0) {
-			errorMessage += "No valid grade!\n";
+			errorMessage += "No valid vy!\n";
 		} else{
 			try{
 				Double.parseDouble(vyField.getText());
 			} catch (NumberFormatException e){
-				errorMessage += "No valid grade!\n";
+				errorMessage += "No valid vy!\n";
 			}
 		}
 		
@@ -151,12 +177,11 @@ public class WorldEditorPanelController {
 		if (errorMessage.length() == 0) {
 			return true;
 		} else { //if there is an error message, create alert with error messages printed
-//			Alert alert = new Alert(AlertType.ERROR);
-//			alert.initOwner(s);
-//			alert.setTitle("Invalid Fields");
-//			alert.setHeaderText("Please correct invalid fields");
-//			alert.setContentText(errorMessage);
-//			alert.showAndWait();
+			
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(errorMessage);
+			alert.showAndWait();
 
 			return false;
 		}

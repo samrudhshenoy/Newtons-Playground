@@ -8,7 +8,9 @@ import java.io.ObjectOutputStream;
 import application.model.World;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 /** The class the controllers the window that is used to save worlds
  * 
@@ -17,8 +19,7 @@ import javafx.scene.control.TextField;
  */
 public class SaveScreenController {
 
-	@FXML
-	private TextField saveNameField;
+	@FXML private TextField saveNameField;
 	private World w;
 
 	/** Sets the world to save
@@ -73,6 +74,12 @@ public class SaveScreenController {
 			return true;
 		} else { //if there is an error message, create alert with error messages printed
 
+			
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(errorMessage);
+			alert.showAndWait();
+			
 			return false;
 		}
 	}

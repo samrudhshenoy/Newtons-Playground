@@ -6,7 +6,9 @@ import java.io.ObjectInputStream;
 import application.model.World;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 /** The class that controlls the loading of saved experiments
  * 
@@ -46,8 +48,6 @@ public class LoadScreenController {
 				fileIn.close();
 
 				msc.setWorld(w);
-				System.out.println(w.toString());
-
 
 			} catch (IOException | ClassNotFoundException e ) {
 				e.printStackTrace();
@@ -66,12 +66,28 @@ public class LoadScreenController {
 		if(saveNameField.getText() == null || saveNameField.getText().length() == 0) {
 			errorMessage += "No valid name!\n";
 		}
+		
+		try {
+
+			FileInputStream fileIn = new FileInputStream("saves/" + saveNameField.getText() + ".ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			w = (World) in.readObject();
+			in.close();
+			fileIn.close();
+		} catch (IOException | ClassNotFoundException e ) {
+			errorMessage += "File does not exist\n";
+		}
 
 		//if there is no error message, returns true
 		if (errorMessage.length() == 0) {
 			return true;
 		} else { //if there is an error message, create alert with error messages printed
 
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(errorMessage);
+			alert.showAndWait();
+			
 			return false;
 		}
 	}
