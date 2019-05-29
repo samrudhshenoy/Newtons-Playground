@@ -52,6 +52,10 @@ public class WorldEditorPanelController {
      * 
      */
     public void refresh() {
+    	
+    	w = m.getWorld();
+    	b = w.getBall();
+    	
     	gravityField.setText("" + w.getGravity());
     	speedField.setText("" + w.getSpeed());
     	xField.setText("" + b.getX());
