@@ -6,7 +6,7 @@ May 2019
 
 
 Our program is a visual physics simulator, specifically designed for building and running user-built kinematic ball and obstacle configurations. Our program is very
-customizable, letting the user set their personal preference for aspects such as downward gravitational acceleration, obstacles in the simulation, and ball weight.
+customizable, letting the user set their personal preference for aspects such as downward gravitational acceleration, obstacles in the simulation, ball weight, etc.
 
 
 The overall goal of the program is to allow the user to test various and infinitely many scenarios to experiment with how the physics in our world affect the way that
@@ -27,9 +27,25 @@ an easy to comprehend visualization of common word problems students tend to hav
 
 
 Instructions:
-- Set values for parameters on the side bar
-- Enter values to change the values for the world or add a new plane as an obstacle
-- Pause and play to set the ball into motion into the simulation
+Once program is launched:
+- Press "Exit" to exit the program
+- Press "Help" to view a detailed set of instructions
+- Press "Start" to enter the simulator
+* Note: Our program assumes a perfect physics world, so there is no decrease of the ball's total velocity because total mechanical energy is conserved
+
+	- Left side bar:
+		- Save/Load an experiment with a user-determined name
+		- Play/Pause an experiment at a desired time
+		- View specific data collected within the time that the game was played and paused
+		- Create a new obstacle with a given coordinate start point, an angle, and a length
+		- Remove all obstacles currently displayed on the screen
+	- Right side bar:
+		- Set the gravitational acceleration of the world
+		- Set the (X, Y) coordinates of the ball
+		- Set the radius of the ball
+		- Set the mass of the ball
+		- Set the current x-directional velocity of the ball
+		- Set the current y-directional velocity of the ball
 
 
 Class List:
